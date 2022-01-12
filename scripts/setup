@@ -8,8 +8,7 @@ git clone git@forge.nemo-ocean.eu:nemo/core.git -b $BRANCH $NEMODIR || exit
 
 # Add commas to namelists
 for BOOL in true false TRUE FALSE; do
-    find $NEMODIR/. -name "*namelist*_ref" -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
-    find $NEMODIR/. -name "*namelist*_cfg" -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
+    find $NEMODIR/. -type f \( -name "*namelist*_ref" -o -name "*namelist*_cfg" \) -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
 done
 
 # Arch files
