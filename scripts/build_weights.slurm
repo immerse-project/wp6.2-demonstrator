@@ -10,6 +10,9 @@
 # Use --multi-prog
 USE_MULTI_PROG=false
 
+# Link exe
+ln -fs ../{scripgrid,scrip,scripshape}.exe .
+
 # Set environment
 module swap PrgEnv-cray/8.0.0 PrgEnv-gnu/8.1.0
 module swap craype-network-ofi craype-network-ucx

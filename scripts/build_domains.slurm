@@ -17,6 +17,10 @@ module load libfabric
 module list
 export OMP_NUM_THREADS=1
 
+# Link exe
+ln -fs ../make_domain_cfg.exe .
+ln -fs ../../REBUILD_NEMO/rebuild_nemo{.exe,} .
+
 # Create domains
 srun --ntasks="$SLURM_NTASKS" ./make_domain_cfg.exe || exit
 
