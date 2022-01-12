@@ -1,0 +1,1 @@
+../../../tools/WEIGHTS/GSRIDGE36/WEIGHTS/JRA/weights_JRA_bicubic.nc

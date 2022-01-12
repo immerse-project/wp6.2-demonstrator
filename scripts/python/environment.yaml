@@ -1,0 +1,10 @@
+name: wp6.2
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - f90nml
+  - xarray
+  - dask
+  - bottleneck
+  - netcdf4

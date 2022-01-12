@@ -1,0 +1,1 @@
+../../tools/WEIGHTS/GSRIDGE36/WEIGHTS/weights_geothermal_heating.nc

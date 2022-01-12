@@ -1,0 +1,1 @@
+/work/n01/n01/malmans/DATASETS/eORCA12/nohaloes/domain_cfg.nc

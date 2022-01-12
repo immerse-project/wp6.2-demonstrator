@@ -1,0 +1,61 @@
+#!/bin/bash
+WD=$PWD
+BRANCH=dev_agrif_immerse
+NEMODIR=nemo/$BRANCH
+
+# Download NEMO
+git clone git@forge.nemo-ocean.eu:nemo/core.git -b $BRANCH $NEMODIR || exit
+
+# Add commas to namelists
+for BOOL in true false TRUE FALSE; do
+    find $NEMODIR/. -name "*namelist*_ref" -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
+    find $NEMODIR/. -name "*namelist*_cfg" -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
+done
+
+# Arch files
+cp /work/n01/shared/nemo/ARCH/* $NEMODIR/arch/NOC/.
+
+# Copy scripts and data
+cp -r {scripts,data} $NEMODIR/.
+
+###########################################
+# TOOLS
+###########################################
+# Add and compile tools
+cp -r tools/* $NEMODIR/tools/.
+cd $NEMODIR/tools || exit
+"$WD"/scripts/compile_tools
+cd "$WD" || exit
+
+# Submit DOMAINcfg
+for DIR in eORCA12_GSRIDGE36Z-GIBSTRA36Z eORCA12_GSRIDGE36Zx2-GIBSTRA36Zx2; do
+    cd $NEMODIR/tools/DOMAINcfg/$DIR/ || exit
+    if [ "$DIR" == "eORCA12_GSRIDGE36Z-GIBSTRA36Z" ] ; then
+        DOMAIN_JOBID=$(sbatch --parsable build_domains.slurm)
+    else
+        sbatch build_domains.slurm
+    fi
+    cd "$WD" || exit
+done
+
+# Submit WEIGHTS
+for DOMAIN in GSRIDGE36 GIBSTRA36; do
+    cd $NEMODIR/tools/WEIGHTS/$DOMAIN || exit
+    sbatch --dependency=afterok:"$DOMAIN_JOBID" build_weights.slurm
+    cd "$WD" || exit
+done
+
+# Bye-Bye
+squeue -u "$USER"
+
+###########################################
+# CONFIGURATIONS
+###########################################
+
+# Add and compile cfgs
+cp -r cfgs/* $NEMODIR/cfgs/.
+cd $NEMODIR || exit
+"$WD"/scripts/compile_nemo
+cd "$WD" || exit
+
+

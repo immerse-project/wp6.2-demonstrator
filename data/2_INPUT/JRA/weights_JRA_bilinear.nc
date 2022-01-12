@@ -1,0 +1,1 @@
+../../../tools/WEIGHTS/GIBSTRA36/WEIGHTS/JRA/weights_JRA_bilinear.nc

@@ -1,0 +1,117 @@
+#!/usr/bin/env python3
+"""
+Create initial conditions flood filling t and s from a restart.
+"""
+import logging
+import os
+import tempfile
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
+
+try:
+    import xarray as xr
+    from dask.distributed import Client
+
+except ImportError as imp_exc:
+    raise ImportError(
+        "This script requires 'xarray' and 'dask' to be installed."
+    ) from imp_exc
+
+
+def main(args):
+    """
+    Args:
+        args: Parsed arguments.
+    """
+
+    logging.basicConfig(level=logging.INFO)
+    cmd = f"{parser.prog} " + " ".join(
+        [f"-{arg.replace('_', '-')} {val}" for arg, val in vars(args).items()]
+    )
+
+    # Start dask client
+    client = Client()
+    logging.info(client)
+
+    # Open netcdf files
+    restart = xr.open_mfdataset(args.r, drop_variables="nav_lev").squeeze(drop=True)
+    domain = xr.open_mfdataset(args.d).squeeze(drop=True).rename(z="nav_lev")
+    nav_lev = domain["nav_lev"]
+    domain = domain.drop("nav_lev")
+
+    # Initialize output
+    ds = restart[["tn", "sn"]]
+    zi = domain["nav_lev"] + 1
+    lsm = (zi >= domain["top_level"]) & (zi <= domain["bottom_level"])
+    ds = ds.where(lsm)
+    ds["LSM"] = lsm.astype(int)
+
+    # Flood fill
+    with tempfile.TemporaryDirectory() as tmpdirname:
+
+        # Checkpoint
+        ds.to_netcdf(os.path.join(tmpdirname, "0.nc"))
+
+        # Loop
+        for i in range(args.n):
+
+            logging.info("Iteration %d/%d", i + 1, args.n)
+
+            # Initialize dataset with values to substitute
+            chunks = {"x": -1, "y": -1, "nav_lev": 1}
+            ds = xr.open_dataset(os.path.join(tmpdirname, f"{i}.nc"), chunks=chunks)
+            ds_drowned = xr.open_dataset(
+                os.path.join(tmpdirname, f"{i}.nc"), chunks=chunks
+            )
+
+            # Loop over dimensions to average
+            for dim, pts in {"x": 3, "y": 3, "nav_lev": 3}.items():
+                ds_drowned = ds_drowned.rolling(
+                    **{dim: pts}, min_periods=1, center=True
+                ).sum()
+
+            # Simple average (not weighted!)
+            ds_drowned = ds_drowned / ds_drowned["LSM"]
+
+            # Update lsm
+            ds_drowned["LSM"] = ds_drowned["LSM"].notnull()
+
+            # Substitute nans before next iteration
+            ds = ds.where(ds["LSM"], ds_drowned)
+
+            if i < args.n - 1:
+                # Checkpoint
+                ds.to_netcdf(os.path.join(tmpdirname, f"{i + 1}.nc"))
+            else:
+                # Write
+                ds["nav_lev"] = nav_lev
+                chunksizes = {"x": 64, "y": 64, "nav_lev": 1}
+                for da in ds.variables.values():
+                    da.encoding = dict(
+                        chunksizes=tuple(chunksizes[dim] for dim in da.dims),
+                        complevel=1,
+                        zlib=True,
+                        _FillValue=-9999,
+                    )
+                logging.info("Writing '%s'", args.o)
+                ds.attrs["history"] = f"Created by: {cmd}"
+                ds.to_netcdf(args.o)
+
+
+if __name__ == "__main__":
+
+    # Parse arguments
+    parser = ArgumentParser(
+        prog="make_initial_conditions",
+        formatter_class=ArgumentDefaultsHelpFormatter,
+        description="Create initial conditions from a restart.",
+        prefix_chars="-",
+    )
+    parser.add_argument("-r", help="restart path", type=str, default="./restart.nc")
+    parser.add_argument(
+        "-d", help="domain_cfg path", type=str, default="./domain_cfg.nc"
+    )
+    parser.add_argument("-n", help="number of iterations", type=int, default=1)
+    parser.add_argument("-o", help="output path", type=str, required=True)
+
+    # Let's go!
+    main(parser.parse_args())
