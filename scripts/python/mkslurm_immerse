@@ -258,7 +258,7 @@ def main(args):
 
     # Move log file
     mkdir -p LOGS/"$SLURM_JOB_ID"
-    mv {{*.dat,*output*,*.stat*}} LOGS/"$SLURM_JOB_ID"
+    mv {{*.dat,*output*,*.stat*,communication_report.txt}} LOGS/"$SLURM_JOB_ID"
 
     # Exit
     ERROR=$(grep "E R R O R" {" ".join([os.path.join(path, 'LOGS/"$SLURM_JOB_ID"', "*ocean.output*") for path in args.D])} | wc -l)

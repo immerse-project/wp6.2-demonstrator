@@ -163,7 +163,7 @@ sacct -j "$SLURM_JOB_ID" --units=G --format=JobID,JobName,NNodes,Elapsed,AveRSS,
 
 # Move log file
 mkdir -p LOGS/"$SLURM_JOB_ID"
-mv {*.dat,*output*,*.stat*} LOGS/"$SLURM_JOB_ID"
+mv {*.dat,*output*,*.stat*,communication_report.txt} LOGS/"$SLURM_JOB_ID"
 
 # Exit
 ERROR=$(grep "E R R O R" ./LOGS/"$SLURM_JOB_ID"/*ocean.output* | wc -l)
