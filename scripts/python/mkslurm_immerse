@@ -58,6 +58,7 @@ def main(args):
     #SBATCH --qos={args.q}
     #SBATCH --nodes={sum(val['nnodes'] for val in hetjob_mapper.values())}
     #SBATCH --ntasks-per-core=1
+    # Created by: {cmd}
     """
     string += """
     # ========================================================
@@ -103,7 +104,7 @@ def main(args):
     if [ "$PARENT_IT000" -eq 0 ]; then
         RESUBMIT=true
         if test -f "time.step"; then
-        PARENT_IT000=$(grep -Eo '[0-9\.]+' time.step)
+            PARENT_IT000=$(grep -Eo '[0-9\.]+' time.step)
         fi
         PARENT_IT000=$(( PARENT_IT000 + 1 ))
     else
@@ -122,22 +123,21 @@ def main(args):
         edit_var ln_init_chfrpar ".false." ./*_namelist_cfg
 
         for NAMELIST in *namelist_cfg; do
-        # Set start
-        DT=$(get_var rn_dt "$NAMELIST")
-        DT=${DT%.*}
-        RATIO=$(( PARENT_DT / DT ))
-        TSTEP=$(( (PARENT_IT000 - 1) * RATIO ))
-        IT000=$(( TSTEP + 1 / RATIO ))
-        edit_var "nn_it000" "$IT000" "$NAMELIST"
+            # Set start
+            DT=$(get_var rn_dt "$NAMELIST")
+            DT=${DT%.*}
+            RATIO=$(( PARENT_DT / DT ))
+            TSTEP=$(( (PARENT_IT000 - 1) * RATIO ))
+            IT000=$(( TSTEP + 1 / RATIO ))
+            edit_var "nn_it000" "$IT000" "$NAMELIST"
 
-        # Set restart prefixes
-        EXP=$(get_var cn_exp "${NAMELIST}")
-        OCERST_IN=${EXP}_$(printf "%08d" "$TSTEP")_restart
-        NAMELIST_ICE=${NAMELIST//namelist_cfg/namelist_ice_cfg}
-        ICERST_IN=${OCERST_IN}_ice
-        edit_var cn_ocerst_in "'${OCERST_IN}'" "$NAMELIST"
-        edit_var cn_icerst_in "'${ICERST_IN}'" "$NAMELIST_ICE"
-
+            # Set restart prefixes
+            EXP=$(get_var cn_exp "${NAMELIST}")
+            OCERST_IN=${EXP}_$(printf "%08d" "$TSTEP")_restart
+            NAMELIST_ICE=${NAMELIST//namelist_cfg/namelist_ice_cfg}
+            ICERST_IN=${OCERST_IN}_ice
+            edit_var cn_ocerst_in "'${OCERST_IN}'" "$NAMELIST"
+            edit_var cn_icerst_in "'${ICERST_IN}'" "$NAMELIST_ICE"
         done
 
     else
@@ -158,7 +158,7 @@ def main(args):
         ITEND=$(( IT000 - 1 + FREQRST * 60 * 60 / DT ))
         FINAL=$(( LENGTH * 60 * 60 / DT ))
         if [ "$ITEND" -ge "$FINAL" ]; then
-        ITEND=$FINAL
+            ITEND=$FINAL
         fi
         edit_var nn_itend "$ITEND" "$NAMELIST"
     done
@@ -173,7 +173,7 @@ def main(args):
     for SUFFIX in RESTARTS OUTPUT; do
         mkdir -p $SUFFIX
         for PREFIX in $(seq "$(find . -name "*_namelist_cfg" | wc -l)"); do
-        mkdir -p "${PREFIX}_"$SUFFIX
+            mkdir -p "${PREFIX}_"$SUFFIX
         done
     done
 
@@ -185,7 +185,7 @@ def main(args):
 
     # Environment
     string = f"""
-    # Created by: {cmd}
+    # Set environment
     {'module swap PrgEnv-cray/8.0.0 PrgEnv-gnu/8.1.0' if args.gnu else ''}
     module swap craype-network-ofi craype-network-ucx
     module swap cray-mpich cray-mpich-ucx

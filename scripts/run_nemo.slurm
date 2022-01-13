@@ -6,6 +6,7 @@
 #SBATCH --qos=standard
 #SBATCH --nodes=74
 #SBATCH --ntasks-per-core=1
+# Created by: mkslurm_immerse -S 24 -s 16 -m 1 -C 9007 -g 0 -D ['.'] --alternate-dirs False -N 128 -t 00:15:00 -a n01-CLASS -j WP6.2 -p standard -q standard -v False --gnu True
 
 # ========================================================
 # PARAMETERS TO SET
@@ -50,7 +51,7 @@ fi
 if [ "$PARENT_IT000" -eq 0 ]; then
     RESUBMIT=true
     if test -f "time.step"; then
-    PARENT_IT000=$(grep -Eo '[0-9\.]+' time.step)
+        PARENT_IT000=$(grep -Eo '[0-9\.]+' time.step)
     fi
     PARENT_IT000=$(( PARENT_IT000 + 1 ))
 else
@@ -69,22 +70,21 @@ if [ "$PARENT_IT000" -gt 1 ]; then
     edit_var ln_init_chfrpar ".false." ./*_namelist_cfg
 
     for NAMELIST in *namelist_cfg; do
-    # Set start
-    DT=$(get_var rn_dt "$NAMELIST")
-    DT=${DT%.*}
-    RATIO=$(( PARENT_DT / DT ))
-    TSTEP=$(( (PARENT_IT000 - 1) * RATIO ))
-    IT000=$(( TSTEP + 1 / RATIO ))
-    edit_var "nn_it000" "$IT000" "$NAMELIST"
+        # Set start
+        DT=$(get_var rn_dt "$NAMELIST")
+        DT=${DT%.*}
+        RATIO=$(( PARENT_DT / DT ))
+        TSTEP=$(( (PARENT_IT000 - 1) * RATIO ))
+        IT000=$(( TSTEP + 1 / RATIO ))
+        edit_var "nn_it000" "$IT000" "$NAMELIST"
 
-    # Set restart prefixes
-    EXP=$(get_var cn_exp "${NAMELIST}")
-    OCERST_IN=${EXP}_$(printf "%08d" "$TSTEP")_restart
-    NAMELIST_ICE=${NAMELIST//namelist_cfg/namelist_ice_cfg}
-    ICERST_IN=${OCERST_IN}_ice
-    edit_var cn_ocerst_in "'${OCERST_IN}'" "$NAMELIST"
-    edit_var cn_icerst_in "'${ICERST_IN}'" "$NAMELIST_ICE"
-
+        # Set restart prefixes
+        EXP=$(get_var cn_exp "${NAMELIST}")
+        OCERST_IN=${EXP}_$(printf "%08d" "$TSTEP")_restart
+        NAMELIST_ICE=${NAMELIST//namelist_cfg/namelist_ice_cfg}
+        ICERST_IN=${OCERST_IN}_ice
+        edit_var cn_ocerst_in "'${OCERST_IN}'" "$NAMELIST"
+        edit_var cn_icerst_in "'${ICERST_IN}'" "$NAMELIST_ICE"
     done
 
 else
@@ -105,7 +105,7 @@ for NAMELIST in *namelist_cfg; do
     ITEND=$(( IT000 - 1 + FREQRST * 60 * 60 / DT ))
     FINAL=$(( LENGTH * 60 * 60 / DT ))
     if [ "$ITEND" -ge "$FINAL" ]; then
-    ITEND=$FINAL
+        ITEND=$FINAL
     fi
     edit_var nn_itend "$ITEND" "$NAMELIST"
 done
@@ -120,7 +120,7 @@ mkdir -p RESTARTS OUTPUT
 for SUFFIX in RESTARTS OUTPUT; do
     mkdir -p $SUFFIX
     for PREFIX in $(seq "$(find . -name "*_namelist_cfg" | wc -l)"); do
-    mkdir -p "${PREFIX}_"$SUFFIX
+        mkdir -p "${PREFIX}_"$SUFFIX
     done
 done
 
@@ -128,7 +128,7 @@ done
 ln -fs /work/n01/shared/nemo/xios-trunk-gnu/bin/xios_server.exe .
 ln -fs ../BLD/bin/nemo.exe nemo
 
-# Created by: mkslurm_immerse -S 24 -s 16 -m 1 -C 9007 -g 0 -D . --alternate-dirs False -N 128 -t 00:15:00 -a n01-CLASS -j WP6.2 -p standard -q standard -v False --gnu True
+# Set environment
 module swap PrgEnv-cray/8.0.0 PrgEnv-gnu/8.1.0
 module swap craype-network-ofi craype-network-ucx
 module swap cray-mpich cray-mpich-ucx
@@ -172,3 +172,4 @@ if [ "$ERROR" -ne 0 ]; then
     grep -c "E R R O R" ./LOGS/"$SLURM_JOB_ID"/*ocean.output*
 fi
 exit "$ERROR"
+
