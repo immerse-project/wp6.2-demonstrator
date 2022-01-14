@@ -8,3 +8,8 @@ dependencies:
   - dask
   - bottleneck
   - netcdf4
+  - ipython
+  - xoak
+  - scikit-learn
+  - pys2index
+  - scipy
