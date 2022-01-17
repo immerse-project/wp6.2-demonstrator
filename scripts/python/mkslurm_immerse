@@ -176,9 +176,11 @@ def main(args):
             mkdir -p "${PREFIX}_"$SUFFIX
         done
     done
+    """
 
+    string += f"""
     # Link xios and nemo
-    ln -fs /work/n01/shared/nemo/xios-trunk-gnu/bin/xios_server.exe .
+    ln -fs /work/n01/shared/nemo/xios-trunk{'-gnu' if args.gnu else ''}/bin/xios_server.exe .
     ln -fs ../BLD/bin/nemo.exe nemo
     """
     slurm = dedent(string)
