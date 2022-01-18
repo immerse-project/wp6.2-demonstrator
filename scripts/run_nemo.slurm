@@ -130,7 +130,6 @@ if [ "$ITEND" -lt "$FINAL" ] && [ "$RESUBMIT" = true ]; then
 fi
 
 # Create directories
-mkdir -p RESTARTS OUTPUT
 for SUFFIX in RESTARTS OUTPUT; do
     mkdir -p $SUFFIX
     for PREFIX in $(seq "$(find . -name "*_namelist_cfg" | wc -l)"); do
