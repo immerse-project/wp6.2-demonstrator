@@ -91,8 +91,10 @@ if [ "$PARENT_IT000" -gt 1 ]; then
         edit_var cn_ocerst_in "'${OCERST_IN}'" "$NAMELIST"
         edit_var cn_icerst_in "'${ICERST_IN}'" "$NAMELIST_ICE"
 
-        # Switch OFF init from parent
-        edit_var ln_init_chfrpar ".false." "$NAMELIST"
+        if [ "$NAMELIST" != "namelist_cfg" ]; then
+            # Switch OFF init from parent
+            edit_var ln_init_chfrpar ".false." "$NAMELIST"
+        fi
     done
 
 else
@@ -103,7 +105,7 @@ else
     edit_var cn_icerst_in "'dummy'" ./*namelist_ice_cfg
     edit_var nn_it000 "1" ./*namelist_cfg
 
-    for NAMELIST in *namelist_cfg; do
+    for NAMELIST in *_namelist_cfg; do
         # Switch ON init from parent
         edit_var ln_init_chfrpar ".true." "$NAMELIST"
     done
