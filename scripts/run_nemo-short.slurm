@@ -6,7 +6,7 @@
 #SBATCH --qos=short
 #SBATCH --nodes=32
 #SBATCH --ntasks-per-core=1
-# Created by: mkslurm_immerse -S 24 -s 16 -m 2 -C 3668 -g 0 -D ['.'] --alternate-dirs False -N 128 -t 00:20:00 -a n01-CLASS -j WP6.2-test -p standard -q short -v False --gnu True
+# Created by: mkslurm_immerse -S 24 -s 16 -m 2 -C 3668 -g 0 -D . --alternate-dirs False -N 128 -t 00:20:00 -a n01-CLASS -j WP6.2-test -p standard -q short -v False --gnu True
 
 # ========================================================
 # PARAMETERS TO SET
@@ -39,6 +39,12 @@ edit_var () {
     eval "$CMD"
 }
 
+get_timestep () {
+    TIMENAME=$1
+    TIMESTEP=$(grep -Eo '[0-9\.]+' "$TIMENAME")
+    echo "$TIMESTEP"
+}
+
 # Convert days to hours
 if [ "$FREQRST" -lt 0 ]; then
     FREQRST=$(( FREQRST * -24 ))
@@ -51,7 +57,7 @@ fi
 if [ "$PARENT_IT000" -eq 0 ]; then
     RESUBMIT=true
     if test -f "time.step"; then
-        PARENT_IT000=$(grep -Eo '[0-9\.]+' time.step)
+        PARENT_IT000=$(get_timestep time.step)
     fi
     PARENT_IT000=$(( PARENT_IT000 + 1 ))
 else
@@ -67,7 +73,6 @@ if [ "$PARENT_IT000" -gt 1 ]; then
     # Use restarts
     edit_var ln_rstart ".true." ./*namelist_cfg
     edit_var ln_tsd_init ".false." ./namelist_cfg
-    edit_var ln_init_chfrpar ".false." ./*_namelist_cfg
 
     for NAMELIST in *namelist_cfg; do
         # Set start
@@ -85,16 +90,23 @@ if [ "$PARENT_IT000" -gt 1 ]; then
         ICERST_IN=${OCERST_IN}_ice
         edit_var cn_ocerst_in "'${OCERST_IN}'" "$NAMELIST"
         edit_var cn_icerst_in "'${ICERST_IN}'" "$NAMELIST_ICE"
+
+        # Switch OFF init from parent
+        edit_var ln_init_chfrpar ".false." "$NAMELIST"
     done
 
 else
     # Start from rest
     edit_var ln_rstart ".false." ./*namelist_cfg
     edit_var ln_tsd_init ".true." ./namelist_cfg
-    edit_var ln_init_chfrpar ".true." ./*_namelist_cfg
     edit_var cn_ocerst_in "'dummy'" ./*namelist_cfg
     edit_var cn_icerst_in "'dummy'" ./*namelist_ice_cfg
     edit_var nn_it000 "1" ./*namelist_cfg
+
+    for NAMELIST in *namelist_cfg; do
+        # Switch ON init from parent
+        edit_var ln_init_chfrpar ".true." "$NAMELIST"
+    done
 fi
 
 # Edit nn_itend
@@ -161,15 +173,31 @@ wait
 # Print stats
 sacct -j "$SLURM_JOB_ID" --units=G --format=JobID,JobName,NNodes,Elapsed,AveRSS,MaxRSS,MaxRSSNode,MaxRSSTask
 
-# Move log file
-mkdir -p LOGS/"$SLURM_JOB_ID"
-mv {*.dat,*output*,*.stat*,communication_report.txt} LOGS/"$SLURM_JOB_ID"
+# Move log files
+if ls ./*ocean.output*; then
+    mkdir -p LOGS/"$SLURM_JOB_ID"
+    mv {*.dat,*output*,*.stat*,communication_report.txt} LOGS/"$SLURM_JOB_ID"
+else
+    echo "E R R O R : NEMO ocean.output files are missing"
+    exit 1
+fi
 
-# Exit
+# Check for errors
 ERROR=$(grep "E R R O R" ./LOGS/"$SLURM_JOB_ID"/*ocean.output* | wc -l)
-if [ "$ERROR" -ne 0 ]; then
+if [ "$ERROR" -gt 0 ]; then
     echo "E R R O R"
     grep -c "E R R O R" ./LOGS/"$SLURM_JOB_ID"/*ocean.output*
+    exit 1
 fi
-exit "$ERROR"
+
+# Check nn_itend vs time.step
+for NAMELIST in *namelist_cfg; do
+    EXPECTED=$(get_var nn_itend "$NAMELIST")
+    TIMENAME=${NAMELIST//namelist_cfg/time.step}
+    ACTUAL=$(get_timestep "$TIMENAME")
+    if [ "$EXPECTED" -ne "$ACTUAL" ]; then
+        echo "E R R O R : $TIMENAME is $ACTUAL (expecting $EXPECTED)"
+        exit 1
+    fi
+done
 
