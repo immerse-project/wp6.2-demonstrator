@@ -35,7 +35,7 @@ edit_var () {
     VARNAME=$1
     VAR=$2
     NAMNAMES=${*:3}
-    CMD=$(echo sed -i "\"s/^\s*${VARNAME}\s*=.*/\t${VARNAME} = ${VAR},/g\"" "$NAMNAMES")
+    CMD=$(echo sed -i "\"s|^\s*${VARNAME}\s*=.*|\t${VARNAME} = ${VAR},|g\"" "$NAMNAMES")
     eval "$CMD"
 }
 
