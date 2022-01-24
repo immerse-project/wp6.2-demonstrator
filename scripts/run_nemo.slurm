@@ -175,26 +175,36 @@ wait
 sacct -j "$SLURM_JOB_ID" --units=G --format=JobID,JobName,NNodes,Elapsed,AveRSS,MaxRSS,MaxRSSNode,MaxRSSTask
 
 # Move log files
-if ls ./*ocean.output*; then
-    mkdir -p LOGS/"$SLURM_JOB_ID"
-    mv {*.dat,*output*,*.stat*,communication_report.txt} LOGS/"$SLURM_JOB_ID"
-else
-    echo "E R R O R : NEMO ocean.output files are missing"
-    exit 1
-fi
+mkdir -p LOGS/"$SLURM_JOB_ID"
+mv {*.dat,*output*,*.stat*,communication_report.txt} LOGS/"$SLURM_JOB_ID"
 
-# Check for errors
-ERROR=$(grep "E R R O R" ./LOGS/"$SLURM_JOB_ID"/*ocean.output* | wc -l)
-if [ "$ERROR" -gt 0 ]; then
-    echo "E R R O R"
-    grep -c "E R R O R" ./LOGS/"$SLURM_JOB_ID"/*ocean.output*
-    exit 1
-fi
-
-# Check nn_itend vs time.step
+# Check time.step and ocean.output
 for NAMELIST in *namelist_cfg; do
-    EXPECTED=$(get_var nn_itend "$NAMELIST")
+
+    # Check that ocean.output exist
+    OUTNAME=${NAMELIST//namelist_cfg/ocean.output}
+    OUTNAME=LOGS/"$SLURM_JOB_ID"/"$OUTNAME"
+    if [ ! -f  "$OUTNAME" ]; then
+        echo "E R R O R : $OUTNAME is missing."
+        exit 1
+    fi
+
+    # Check for errors
+    ERROR=$(grep "E R R O R" "$OUTNAME" | wc -l)
+    if [ "$ERROR" -gt 0 ]; then
+        echo "E R R O R : errors found in $OUTNAME"
+        exit 1
+    fi
+
+    # Check that time.step exist
     TIMENAME=${NAMELIST//namelist_cfg/time.step}
+    if [ ! -f  "$TIMENAME" ]; then
+        echo "E R R O R : $TIMENAME is missing."
+        exit 1
+    fi
+
+    # Check nn_itend vs time.step
+    EXPECTED=$(get_var nn_itend "$NAMELIST")
     ACTUAL=$(get_timestep "$TIMENAME")
     if [ "$EXPECTED" -ne "$ACTUAL" ]; then
         echo "E R R O R : $TIMENAME is $ACTUAL (expecting $EXPECTED)"

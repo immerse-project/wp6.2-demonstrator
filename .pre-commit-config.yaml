@@ -21,6 +21,7 @@ repos:
     hooks:
       - id: isort
         files: scripts\/python\/(([^.]+)$|.*\.py)
+        args: [--profile=black]
 
   - repo: https://github.com/psf/black
     rev: 21.12b0
