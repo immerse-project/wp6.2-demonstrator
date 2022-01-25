@@ -34,4 +34,5 @@ repos:
     hooks:
        - id: flake8
          files: scripts\/python\/(([^.]+)$|.*\.py)
-         args: [--max-line-length=88]
+         args: [--ignore=E501]
+

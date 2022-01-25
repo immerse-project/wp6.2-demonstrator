@@ -276,7 +276,7 @@ def main(args):
             [f"cd {wdir} || exit", string + " &", 'cd "$SLURM_SUBMIT_DIR" || exit\n']
         )
 
-    tail = f"""
+    tail = """
     wait
 
     # Print stats
@@ -284,13 +284,13 @@ def main(args):
 
     # Move log files
     mkdir -p LOGS/"$SLURM_JOB_ID"
-    mv {{*.dat,*output*,*.stat*,communication_report.txt}} LOGS/"$SLURM_JOB_ID"
+    mv {*.dat,*output*,*.stat*,communication_report.txt} LOGS/"$SLURM_JOB_ID"
 
     # Check time.step and ocean.output
     for NAMELIST in *namelist_cfg; do
-        
+
         # Check that ocean.output exist
-        OUTNAME=${{NAMELIST//namelist_cfg/ocean.output}}
+        OUTNAME=${NAMELIST//namelist_cfg/ocean.output}
         OUTNAME=LOGS/"$SLURM_JOB_ID"/"$OUTNAME"
         if [ ! -f  "$OUTNAME" ]; then
             echo "E R R O R : $OUTNAME is missing."
@@ -305,7 +305,7 @@ def main(args):
         fi
 
         # Check that time.step exist
-        TIMENAME=${{NAMELIST//namelist_cfg/time.step}}
+        TIMENAME=${NAMELIST//namelist_cfg/time.step}
         if [ ! -f  "$TIMENAME" ]; then
             echo "E R R O R : $TIMENAME is missing."
             exit 1
