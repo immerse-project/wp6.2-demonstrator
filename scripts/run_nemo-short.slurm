@@ -206,7 +206,7 @@ for NAMELIST in *namelist_cfg; do
     # Check nn_itend vs time.step
     EXPECTED=$(get_var nn_itend "$NAMELIST")
     ACTUAL=$(get_timestep "$TIMENAME")
-    if [ "$EXPECTED" -ne "$ACTUAL" ]; then
+    if [ "$ACTUAL" -lt "$EXPECTED" ]; then
         echo "E R R O R : $TIMENAME is $ACTUAL (expecting $EXPECTED)"
         exit 1
     fi

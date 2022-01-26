@@ -74,14 +74,11 @@
     ln_rnf_mouth = .true.,
     rn_hrnf = 10.0,
     rn_avt_rnf = 0.002,
-    ln_rnf_tem = .true.,
     cn_dir = './INPUT/',
     sn_rnf = 'runoff_1m_nomask.nc', -1, 'sornficb', .true., .true., 'yearly',
              'weights_runoff_1m_nomask.nc', '', '',
     sn_cnf = 'runoff_1m_nomask.nc', 0, 'socoefr', .false., .true., 'yearly',
              'weights_runoff_1m_nomask.nc', '', '',
-    sn_t_rnf = 'runoff_1m_nomask.nc', -12, 'icbtemper', .false., .true.,
-               'yearly', 'weights_runoff_1m_nomask.nc', '', '',
 /
 
 &namisf

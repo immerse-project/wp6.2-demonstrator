@@ -480,7 +480,7 @@
       rn_avt_rnf  =   0.002    !  value of the additional vertical mixing coef. [m2/s] (ln_rnf_mouth=T)
    rn_rfact     =   1.e0    !  multiplicative factor for runoff
    ln_rnf_depth = .false.,   !  read in depth information for runoff
-   ln_rnf_tem   = .true.   !  read in temperature information for runoff
+   ln_rnf_tem   = .false.,   !  read in temperature information for runoff
    ln_rnf_sal   = .false.,   !  read in salinity information for runoff
    ln_rnf_icb   = .false.,   !  read iceberg flux
    ln_rnf_depth_ini = .false.,  ! compute depth at initialisation from runoff file
@@ -495,7 +495,7 @@
    sn_rnf      = 'runoff_1m_nomask.nc'   ,        -1        , 'sornficb',   .true.    , .true. , 'yearly'  , 'weights_runoff_1m_nomask.nc'               , ''       , ''
    sn_cnf      = 'runoff_1m_nomask.nc'   ,       0        , 'socoefr',   .false.   , .true. , 'yearly'  , 'weights_runoff_1m_nomask.nc'               , ''       , ''
    sn_s_rnf    = 'runoffs'               ,        24.        , 'rosaline',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
-   sn_t_rnf    = 'runoff_1m_nomask.nc'               ,        -12        , 'icbtemper',   .false.    , .true. , 'yearly'  , 'weights_runoff_1m_nomask.nc'               , ''       , ''
+   sn_t_rnf    = 'runoffs'               ,        24.        , 'rotemper',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
    sn_i_rnf    = 'NOT USED'              ,        24.        , 'xxxxxxxx',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
    sn_dep_rnf  = 'runoffs'               ,       -12.        , 'rodepth' ,   .false.   , .true. , 'yearly'  , ''               , ''       , ''
 /
