@@ -12,3 +12,5 @@ dependencies:
   - xoak
   - scikit-learn
   - pys2index
+  - tqdm
+  - zarr

@@ -39,7 +39,7 @@
    cn_exp      =  'GSRIDGE36Z'  !  experience name
    nn_it000    =       'CHANGEME'   !  first time step
    nn_itend    =    'CHANGEME'   !  last  time step (std 5840)
-   nn_date0    =  19620101   !  date at nit_0000 (format yyyymmdd) used if ln_rstart=F or (ln_rstart=T and nn_rstctl=0 or 1)
+   nn_date0    =  20060101   !  date at nit_0000 (format yyyymmdd) used if ln_rstart=F or (ln_rstart=T and nn_rstctl=0 or 1)
    nn_time0    =       0   !  initial time of day in hhmm
    nn_leapy    =       0   !  Leap year calendar (1) or not (0)
    ln_rstart   = 'CHANGEME'   !  start from rest (F) or from a restart file (T)

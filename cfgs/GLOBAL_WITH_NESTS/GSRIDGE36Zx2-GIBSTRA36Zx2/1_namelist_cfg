@@ -4,7 +4,7 @@
     cn_exp = 'GSRIDGE36Zx2',
     nn_it000 = 'CHANGEME',
     nn_itend = 'CHANGEME',
-    nn_date0 = 19620101,
+    nn_date0 = 20060101,
     ln_rstart = 'CHANGEME',
     nn_rstctl = 2,
     cn_ocerst_in = 'CHANGEME',
