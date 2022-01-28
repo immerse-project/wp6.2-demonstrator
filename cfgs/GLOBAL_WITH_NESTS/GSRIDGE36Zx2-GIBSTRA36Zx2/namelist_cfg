@@ -15,7 +15,6 @@
 /
 
 &namdom
-    ln_linssh = .true.,
     rn_dt = 300.0,
     rn_atfp = 0.03,
     ln_meshmask = .false.,

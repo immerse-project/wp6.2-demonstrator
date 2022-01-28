@@ -60,7 +60,7 @@ def main(args):
 
                 # Print ncks command
                 count += 1
-                cmd_to_print = [f"Nest {count:02d}: ncks"]
+                cmd_to_print = [f"Nest {count:02d}: ncks -F"]
                 for dim in dims:
                     values = indexes[dim].values
                     assert len(set(values)) == 2, "Can't find unique indexes."
