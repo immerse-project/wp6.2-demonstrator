@@ -27,8 +27,9 @@ cd $NEMODIR/tools || exit
 cd "$WD" || exit
 
 # Submit DOMAINcfg
-for DIR in eORCA12_GSRIDGE36Z-GIBSTRA36Z eORCA12_GSRIDGE36Zx2-GIBSTRA36Zx2; do
-    cd $NEMODIR/tools/DOMAINcfg/$DIR/ || exit
+for DIR in tools/DOMAINcfg/*/; do
+    DIR=$(basename "$DIR")
+    cd $NEMODIR/tools/DOMAINcfg/"$DIR"/ || exit
     if [ "$DIR" == "eORCA12_GSRIDGE36Z-GIBSTRA36Z" ] ; then
         DOMAIN_JOBID=$(sbatch --parsable build_domains.slurm)
     else

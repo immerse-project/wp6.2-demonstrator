@@ -1,0 +1,1 @@
+../../../tools/DOMAINcfg/eORCA12_GSRIDGE36Zx2-GIBSTRA36Zx2_CUTOUT/domain_cfg.nc
