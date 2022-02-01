@@ -1,4 +1,4 @@
-! Created by: print_concise_namelist_cfg -c 1_namelist_cfg -r 1_namelist_ref -overwrite True
+! Created by: print_concise_namelist_cfg -c ./1_namelist_cfg -r ./1_namelist_ref -overwrite True
 
 &namdom
     cn_topo = './INPUT/iORCA_R36_bathymetry_v3.0_cutout.nc',

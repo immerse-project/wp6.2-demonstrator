@@ -1,4 +1,4 @@
-! Created by: print_concise_namelist_cfg -c 1_namelist_ice_cfg -r 1_namelist_ice_ref -overwrite True
+! Created by: print_concise_namelist_cfg -c ./1_namelist_ice_cfg -r ./1_namelist_ice_ref -overwrite True
 
 &nampar
     nlay_i = 4,

@@ -1,4 +1,4 @@
-! Created by: print_concise_namelist_cfg -c namelist_cfg -r namelist_ref -overwrite True
+! Created by: print_concise_namelist_cfg -c ./namelist_cfg -r ./namelist_ref -overwrite True
 
 &namdom
     ln_read_cfg = .true.,

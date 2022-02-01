@@ -1,4 +1,4 @@
-! Created by: print_concise_namelist_cfg -c 2_namelist_cfg -r 2_namelist_ref -overwrite True
+! Created by: print_concise_namelist_cfg -c ./2_namelist_cfg -r ./2_namelist_ref -overwrite True
 
 &namrun
     cn_exp = 'GIBSTRA36Zx2',

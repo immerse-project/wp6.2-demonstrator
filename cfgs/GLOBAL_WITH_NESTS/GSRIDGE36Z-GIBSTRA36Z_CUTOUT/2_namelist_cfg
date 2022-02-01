@@ -1,4 +1,4 @@
-! Created by: print_concise_namelist_cfg -c 2_namelist_cfg -r 2_namelist_ref -overwrite True
+! Created by: print_concise_namelist_cfg -c ./2_namelist_cfg -r ./2_namelist_ref -overwrite True
 
 &namrun
     cn_exp = 'GIBSTRA36Z',
@@ -74,10 +74,10 @@
     rn_hrnf = 10.0,
     rn_avt_rnf = 0.002,
     cn_dir = './INPUT/',
-    sn_rnf = 'iORCA_R36_runoff_v3.0_cutout.nc', -1, 'sornficb', .true., .true., 'yearly',
-             '', '', '',
-    sn_cnf = 'iORCA_R36_runoff_v3.0_cutout.nc', 0, 'socoefr', .false., .true., 'yearly',
-             '', '', '',
+    sn_rnf = 'iORCA_R36_runoff_v3.0_cutout.nc', -1, 'sornficb', .true.,
+             .true., 'yearly', '', '', '',
+    sn_cnf = 'iORCA_R36_runoff_v3.0_cutout.nc', 0, 'socoefr', .false., .true.,
+             'yearly', '', '', '',
 /
 
 &namlbc
