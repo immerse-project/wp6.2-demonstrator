@@ -74,24 +74,10 @@
     rn_hrnf = 10.0,
     rn_avt_rnf = 0.002,
     cn_dir = './INPUT/',
-    sn_rnf = 'runoff_1m_nomask.nc', -1, 'sornficb', .true., .true., 'yearly',
-             'weights_runoff_1m_nomask.nc', '', '',
-    sn_cnf = 'runoff_1m_nomask.nc', 0, 'socoefr', .false., .true., 'yearly',
-             'weights_runoff_1m_nomask.nc', '', '',
-/
-
-&namisf
-    ln_isf = .true.,
-    ln_isfpar_mlt = .true.,
-    sn_isfpar_zmax = 'INPUT/runoff_1m_nomask.nc', 0, 'sozisfmax', .false.,
-                     .true., 'yearly', 'INPUT/weights_runoff_1m_nomask.nc',
-                     '', '',
-    sn_isfpar_zmin = 'INPUT/runoff_1m_nomask.nc', 0, 'sozisfmin', .false.,
-                     .true., 'yearly', 'INPUT/weights_runoff_1m_nomask.nc',
-                     '', '',
-    sn_isfpar_fwf = 'INPUT/runoff_1m_nomask.nc', -1, 'sofwfisf', .false.,
-                    .true., 'yearly', 'INPUT/weights_runoff_1m_nomask.nc',
-                    '', '',
+    sn_rnf = 'iORCA_R36_runoff_v3.0_cutout.nc', -1, 'sornficb', .true., .true., 'yearly',
+             '', '', '',
+    sn_cnf = 'iORCA_R36_runoff_v3.0_cutout.nc', 0, 'socoefr', .false., .true., 'yearly',
+             '', '', '',
 /
 
 &namlbc
