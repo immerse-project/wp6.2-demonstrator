@@ -25,14 +25,14 @@
 &namdom        !   space and time domain (bathymetry, mesh, timestep)
 !-----------------------------------------------------------------------
    ln_read_cfg = .false.,   !  Read from a domain_cfg file
-   nn_bathy    =    3      ! = 0 compute analyticaly
+   nn_bathy    =    1      ! = 0 compute analyticaly
                            ! = 1 read the bathymetry file
                            ! = 2 compute from external bathymetry
                            ! = 3 compute from parent (if "key_agrif")
    nn_interp   =    1                          ! type of interpolation (nn_bathy =2)
    cn_domcfg   = ' '       ! Name of the domain_cfg input file
    cn_fcoord   =  'coordinates.nc'             ! external coordinates file (jphgr_msh = 0)
-   cn_topo     =  'bathy_meter.nc           '  ! external topo file (nn_bathy =1/2)
+   cn_topo     =  './INPUT/iORCA_R36_bathymetry_v3.0_cutout.nc'  ! external topo file (nn_bathy =1/2)
    cn_topolvl  =  'bathy_level.nc           '  ! external topo file (nn_bathy =1)
    cn_fisfd    =  'isf_draft_meter.nc'         ! external isf draft (nn_bathy =1 and ln_isfcav = .true.,)
    cn_bath     =  'Bathymetry'                 ! topo name in file  (nn_bathy =1/2)

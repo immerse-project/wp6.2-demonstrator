@@ -71,7 +71,7 @@
 !-----------------------------------------------------------------------
 &namdom        !   time and space domain
 !-----------------------------------------------------------------------
-   ln_linssh   = .false.,   !  =T  linear free surface  ==>>  model level are fixed in time
+   ln_linssh   = .true.   !  =T  linear free surface  ==>>  model level are fixed in time
    !
    rn_Dt       = 100.0     !  time step for the dynamics and tracer
    rn_atfp     =    0.03    !  asselin time filter parameter
@@ -122,15 +122,15 @@
 &namtsd        !    Temperature & Salinity Data  (init/dmp)             (default: OFF)
 !-----------------------------------------------------------------------
    !                       ! =T  read T-S fields for:
-   ln_tsd_init = .false.,         !  ocean initialisation
+   ln_tsd_init = 'CHANGEME'         !  ocean initialisation
    ln_tsd_dmp  = .false.,         !  T-S restoring   (see namtra_dmp)
 
-   cn_dir      = './'      !  root directory for the T-S data location
+   cn_dir      = './INPUT/'      !  root directory for the T-S data location
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_tem = 'data_1m_potential_temperature_nomask',  -1.     , 'votemper',   .true.    , .true. , 'yearly'  ,    ''            ,    ''    ,    ''
-   sn_sal = 'data_1m_salinity_nomask'             ,  -1.     , 'vosaline',   .true.    , .true. , 'yearly'  ,    ''            ,    ''    ,    ''
+   sn_tem = 'g8p7ho_tsd_init_filled_150Z',  24.0     , 'tn',   .false.    , .false. , 'daily'  ,    'weights_g8p7ho_tsd_init.nc'            ,    ''    ,    ''
+   sn_sal = 'g8p7ho_tsd_init_filled_150Z'             ,  24.0     , 'sn',   .false.    , .false. , 'daily'  ,    'weights_g8p7ho_tsd_init.nc'            ,    ''    ,    ''
 /
 !-----------------------------------------------------------------------
 &namwad        !   Wetting and Drying (WaD)                             (default: OFF)
@@ -492,8 +492,8 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_rnf      = 'runoff_1m_nomask.nc'   ,        -1        , 'sornficb',   .true.    , .true. , 'yearly'  , 'weights_runoff_1m_nomask.nc'               , ''       , ''
-   sn_cnf      = 'runoff_1m_nomask.nc'   ,       0        , 'socoefr',   .false.   , .true. , 'yearly'  , 'weights_runoff_1m_nomask.nc'               , ''       , ''
+   sn_rnf      = 'iORCA_R36_runoff_v3.0_cutout.nc'   ,        -1        , 'sornficb',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
+   sn_cnf      = 'iORCA_R36_runoff_v3.0_cutout.nc'   ,       0        , 'socoefr',   .false.   , .true. , 'yearly'  , ''               , ''       , ''
    sn_s_rnf    = 'runoffs'               ,        24.        , 'rosaline',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
    sn_t_rnf    = 'runoffs'               ,        24.        , 'rotemper',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
    sn_i_rnf    = 'NOT USED'              ,        24.        , 'xxxxxxxx',   .true.    , .true. , 'yearly'  , ''               , ''       , ''
@@ -524,7 +524,7 @@
    !
    ! ---------------- ice shelf melt formulation -------------------------------
    !
-   ln_isf = .true.           ! activate ice shelf module
+   ln_isf = .false.,           ! activate ice shelf module
       ln_isfdebug = .false.,      ! add debug print in ISF code (global min/max/sum of specific variable)
       cn_isfdir   = './'         ! directory for all ice shelf input file
       !
@@ -555,7 +555,7 @@
       !
       ! ---------------- cavities parametrised -------------------------------
       !
-      ln_isfpar_mlt = .true.   ! ice shelf melting parametrised
+      ln_isfpar_mlt = .false.,   ! ice shelf melting parametrised
          cn_isfpar_mlt = 'spe'  ! ice shelf melting parametrisation (spe/bg03/oasis)
          !                      ! spe   = fwfisf is read from a forcing field ( melt > 0; freezing < 0 )
          !                      ! bg03  = melt computed using Beckmann and Goosse parametrisation
@@ -570,11 +570,11 @@
          !___________!_____________!___________________!___________!_____________!_________!___________!__________!__________!_______________!
          !           !  file name  ! frequency (hours) ! variable  ! time interp.!  clim   ! 'yearly'/ ! weights  ! rotation ! land/sea mask !
          !           !             !  (if <0  months)  !   name    !  (logical)  !  (T/F)  ! 'monthly' ! filename ! pairing  ! filename      !
-         sn_isfpar_zmax = 'INPUT/runoff_1m_nomask.nc',       0       ,'sozisfmax',  .false.    , .true.  , 'yearly'  ,    'INPUT/weights_runoff_1m_nomask.nc'    ,   ''     ,    ''
-         sn_isfpar_zmin = 'INPUT/runoff_1m_nomask.nc',       0       ,'sozisfmin',  .false.    , .true.  , 'yearly'  ,    'INPUT/weights_runoff_1m_nomask.nc'    ,   ''     ,    ''
+         sn_isfpar_zmax = 'isfmlt_par',       0.       ,'sozisfmax',  .false.    , .true.  , 'yearly'  ,    ''    ,   ''     ,    ''
+         sn_isfpar_zmin = 'isfmlt_par',       0.       ,'sozisfmin',  .false.    , .true.  , 'yearly'  ,    ''    ,   ''     ,    ''
          !
          !* 'spe' and 'oasis' case
-         sn_isfpar_fwf = 'INPUT/runoff_1m_nomask.nc' ,      -1      ,'sofwfisf' ,  .false.    , .true.  , 'yearly'  ,    'INPUT/weights_runoff_1m_nomask.nc'    ,   ''     ,    ''
+         sn_isfpar_fwf = 'isfmlt_par' ,      -12.      ,'sofwfisf' ,  .false.    , .true.  , 'yearly'  ,    ''    ,   ''     ,    ''
          !
          !* 'bg03' case
          !* Leff is in [km]
@@ -692,7 +692,7 @@
 &namagrif      !  AGRIF zoom                                            ("key_agrif")
 !-----------------------------------------------------------------------
    ln_agrif_2way   = .true.,  !  activate two way nesting
-   ln_init_chfrpar = 'CHANGEME' !  initialize child grids from parent
+   ln_init_chfrpar = .false., !  initialize child grids from parent
    ln_vert_remap   = .true. !  use vertical remapping
    ln_spc_dyn      = .true.,  !  use 0 as special value for dynamics
    ln_chk_bathy    = .true.,  !  =T  check the parent bathymetry

@@ -39,15 +39,16 @@ for DIR in tools/DOMAINcfg/*/; do
 done
 
 # Submit WEIGHTS
-for DOMAIN in GSRIDGE36 GIBSTRA36; do
-    cd $NEMODIR/tools/WEIGHTS/$DOMAIN || exit
+for DIR in tools/WEIGHTS/*/; do
+    DIR=$(basename "$DIR")
+    cd $NEMODIR/tools/WEIGHTS/"$DIR"/ || exit
     sbatch --dependency=afterok:"$DOMAIN_JOBID" build_weights.slurm
     cd "$WD" || exit
 done
 
 # Bye-Bye
 squeue -u "$USER"
-
+exit
 ###########################################
 # CONFIGURATIONS
 ###########################################

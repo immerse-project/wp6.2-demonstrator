@@ -1,7 +1,7 @@
-! Created by: print_concise_namelist_cfg -c ./2_namelist_cfg -r ./2_namelist_ref -overwrite True
+! Created by: print_concise_namelist_cfg -c ./1_namelist_cfg -r ./1_namelist_ref -overwrite True
 
 &namrun
-    cn_exp = 'GIBSTRA36Z',
+    cn_exp = 'GSRIDGE36Zx2',
     nn_it000 = 'CHANGEME',
     nn_itend = 'CHANGEME',
     nn_date0 = 20060101,
@@ -15,7 +15,6 @@
 /
 
 &namdom
-    ln_linssh = .true.,
     rn_dt = 100.0,
     rn_atfp = 0.03,
     ln_meshmask = .false.,
@@ -29,10 +28,10 @@
 &namtsd
     ln_tsd_init = 'CHANGEME',
     cn_dir = './INPUT/',
-    sn_tem = 'g8p7ho_tsd_init_filled', 24.0, 'tn', .false., .false., 'daily',
-             'weights_g8p7ho_tsd_init.nc', '', '',
-    sn_sal = 'g8p7ho_tsd_init_filled', 24.0, 'sn', .false., .false., 'daily',
-             'weights_g8p7ho_tsd_init.nc', '', '',
+    sn_tem = 'g8p7ho_tsd_init_filled_150Z', 24.0, 'tn', .false., .false.,
+             'daily', 'weights_g8p7ho_tsd_init.nc', '', '',
+    sn_sal = 'g8p7ho_tsd_init_filled_150Z', 24.0, 'sn', .false., .false.,
+             'daily', 'weights_g8p7ho_tsd_init.nc', '', '',
 /
 
 &namsbc
@@ -92,6 +91,10 @@
 
 &namlbc
     rn_shlat = 0,
+/
+
+&namagrif
+    ln_vert_remap = .true.,
 /
 
 &namdrg
