@@ -52,15 +52,19 @@ chmod u+x task.sh
 
 # Create namelists and task.conf
 NTASKS=0
-for INFILE in sss_1m runoff_1m_nomask geothermal_heating JRA/tas_y2021 JRA/vas_y2021; do
+for INFILE in sss_1m g8p7ho_tsd_init_filled_y2006m01d01 geothermal_heating JRA/tas_y2021 JRA/vas_y2021; do
     BASENAME=$(basename $INFILE)
 
     # Set coordinate names
-    LON=lon
-    LAT=lat
     if [ "$INFILE" = "sss_1m" ] || [ "$INFILE" = "runoff_1m_nomask" ]; then
-        LON=nav_$LON
-        LAT=nav_$LAT
+        LON=nav_lon
+        LAT=nav_lat
+    elif [ "$INFILE" = "g8p7ho_tsd_init_filled_y2006m01d01" ]; then
+        LON=glamt
+        LAT=gphit
+    else
+        LON=lon
+        LAT=lat
     fi
 
     # Set interpolation method
@@ -74,6 +78,8 @@ for INFILE in sss_1m runoff_1m_nomask geothermal_heating JRA/tas_y2021 JRA/vas_y
     NAMELIST=$TMPDIR/namelist-$BASENAME
     if [ "$BASENAME" = "tas_y2021" ] || [ "$BASENAME" = "vas_y2021" ]; then
         OUTFILE=WEIGHTS/JRA/weights_JRA_${METHOD}.nc
+    elif [ "$BASENAME" = "g8p7ho_tsd_init_filled_y2006m01d01" ]; then
+        OUTFILE=WEIGHTS/weights_g8p7ho_tsd_init.nc
     else
         OUTFILE=WEIGHTS/weights_$BASENAME.nc
     fi

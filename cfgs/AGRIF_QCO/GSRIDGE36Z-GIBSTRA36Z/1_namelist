@@ -1,4 +1,4 @@
-! Created by: combine_namelists -c ./2_namelist_cfg -r ./2_namelist_ref -o ./2_namelist
+! Created by: combine_namelists -c ./1_namelist_cfg -r ./1_namelist_ref -o ./1_namelist
 
 !!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 !! NEMO/OCE :   Reference namelist_ref                                !!
@@ -36,7 +36,7 @@
 &namrun        !   parameters of the run
 !-----------------------------------------------------------------------
    nn_no       =       0   !  Assimilation cycle index
-   cn_exp      =  'GIBSTRA36Z'  !  experience name
+   cn_exp      =  'GSRIDGE36Z'  !  experience name
    nn_it000    =       'CHANGEME'   !  first time step
    nn_itend    =    'CHANGEME'   !  last  time step (std 5840)
    nn_date0    =  20060101   !  date at nit_0000 (format yyyymmdd) used if ln_rstart=F or (ln_rstart=T and nn_rstctl=0 or 1)
@@ -71,7 +71,7 @@
 !-----------------------------------------------------------------------
 &namdom        !   time and space domain
 !-----------------------------------------------------------------------
-   ln_linssh   = .true.   !  =T  linear free surface  ==>>  model level are fixed in time
+   ln_linssh   = .false.,   !  =T  linear free surface  ==>>  model level are fixed in time
    !
    rn_Dt       = 100.0     !  time step for the dynamics and tracer
    rn_atfp     =    0.03    !  asselin time filter parameter

@@ -1,7 +1,7 @@
 ! Created by: print_concise_namelist_cfg -c ./1_namelist_cfg -r ./1_namelist_ref -overwrite True
 
 &namdom
-    nn_bathy = 3,
+    cn_topo = './INPUT/iORCA_R36_bathymetry_v3.0_cutout.nc',
     ppglam0 = 999999.0,
     ppgphi0 = 999999.0,
     ppe1_deg = 999999.0,

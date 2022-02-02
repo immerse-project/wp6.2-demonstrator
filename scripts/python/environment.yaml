@@ -14,3 +14,4 @@ dependencies:
   - pys2index
   - tqdm
   - zarr
+  - scipy

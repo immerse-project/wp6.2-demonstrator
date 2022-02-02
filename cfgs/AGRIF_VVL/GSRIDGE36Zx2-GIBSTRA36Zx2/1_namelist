@@ -1,4 +1,4 @@
-! Created by: combine_namelists -c ./2_namelist_cfg -r ./2_namelist_ref -o ./2_namelist
+! Created by: combine_namelists -c ./1_namelist_cfg -r ./1_namelist_ref -o ./1_namelist
 
 !!>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 !! NEMO/OCE :   Reference namelist_ref                                !!
@@ -36,7 +36,7 @@
 &namrun        !   parameters of the run
 !-----------------------------------------------------------------------
    nn_no       =       0   !  Assimilation cycle index
-   cn_exp      =  'GIBSTRA36Z'  !  experience name
+   cn_exp      =  'GSRIDGE36Zx2'  !  experience name
    nn_it000    =       'CHANGEME'   !  first time step
    nn_itend    =    'CHANGEME'   !  last  time step (std 5840)
    nn_date0    =  20060101   !  date at nit_0000 (format yyyymmdd) used if ln_rstart=F or (ln_rstart=T and nn_rstctl=0 or 1)
@@ -71,7 +71,7 @@
 !-----------------------------------------------------------------------
 &namdom        !   time and space domain
 !-----------------------------------------------------------------------
-   ln_linssh   = .true.   !  =T  linear free surface  ==>>  model level are fixed in time
+   ln_linssh   = .false.,   !  =T  linear free surface  ==>>  model level are fixed in time
    !
    rn_Dt       = 100.0     !  time step for the dynamics and tracer
    rn_atfp     =    0.03    !  asselin time filter parameter
@@ -129,8 +129,8 @@
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_tem = 'g8p7ho_tsd_init_filled',  24.0     , 'tn',   .false.    , .false. , 'daily'  ,    'weights_g8p7ho_tsd_init.nc'            ,    ''    ,    ''
-   sn_sal = 'g8p7ho_tsd_init_filled'             ,  24.0     , 'sn',   .false.    , .false. , 'daily'  ,    'weights_g8p7ho_tsd_init.nc'            ,    ''    ,    ''
+   sn_tem = 'g8p7ho_tsd_init_filled_150Z',  24.0     , 'tn',   .false.    , .false. , 'daily'  ,    'weights_g8p7ho_tsd_init.nc'            ,    ''    ,    ''
+   sn_sal = 'g8p7ho_tsd_init_filled_150Z'             ,  24.0     , 'sn',   .false.    , .false. , 'daily'  ,    'weights_g8p7ho_tsd_init.nc'            ,    ''    ,    ''
 /
 !-----------------------------------------------------------------------
 &namwad        !   Wetting and Drying (WaD)                             (default: OFF)
@@ -693,7 +693,7 @@
 !-----------------------------------------------------------------------
    ln_agrif_2way   = .true.,  !  activate two way nesting
    ln_init_chfrpar = .false., !  initialize child grids from parent
-   ln_vert_remap   = .false., !  use vertical remapping
+   ln_vert_remap   = .true. !  use vertical remapping
    ln_spc_dyn      = .true.,  !  use 0 as special value for dynamics
    ln_chk_bathy    = .true.,  !  =T  check the parent bathymetry
    rn_sponge_tra   = 0.002   !  coefficient for tracer   sponge layer []
