@@ -19,12 +19,14 @@ Resolution:
 - Horizontal: 1/12°
 - Vertical: 75 levels
 
+<img alt="eORCA12" src="figures/parent.png" width="50%">
+
 ### Child 1: Greenland-Scotland Ridge
 Resolution:
 - Horizontal: 1/36°
 - Vertical: 150 levels
 
-![GSRIDGE](figures/frame-bare.png)
+![GSRIDGE36](figures/frame-bare.png)
 
 ### Child 2: Gibraltar Strait
 Resolution:
