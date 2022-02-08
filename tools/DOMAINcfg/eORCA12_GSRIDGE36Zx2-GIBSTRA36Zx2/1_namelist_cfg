@@ -18,6 +18,9 @@
     ppa2 = 57.857101458,
     ppkth2 = 96.05978744,
     ppacr2 = 39.0,
+    rn_e3zps_min = 25.0,
+    rn_e3zps_rat = 0.2,
+    rn_hmin = -8.0,
 /
 
 &namcfg

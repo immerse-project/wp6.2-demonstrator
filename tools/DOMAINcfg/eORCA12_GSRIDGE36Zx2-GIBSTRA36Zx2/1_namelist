@@ -43,9 +43,9 @@
    rn_scale    =    1.     !  multiplicative factor to account for possibly negative input bathymetry (agrif only) 
    rn_bathy    =    0.     !  value of the bathymetry. if (=0) bottom flat at jpkm1
    nn_msh      =    0      !  create (=1) a mesh file or not (=0)
-   rn_hmin     =   -3.     !  min depth of the ocean (>0) or min number of ocean level (<0)
-   rn_e3zps_min=   20.     !  partial step thickness is set larger than the minimum of
-   rn_e3zps_rat=    0.1    !  rn_e3zps_min and rn_e3zps_rat*e3t, with 0<rn_e3zps_rat<1
+   rn_hmin     =   -8.0     !  min depth of the ocean (>0) or min number of ocean level (<0)
+   rn_e3zps_min=   25.0     !  partial step thickness is set larger than the minimum of
+   rn_e3zps_rat=    0.2    !  rn_e3zps_min and rn_e3zps_rat*e3t, with 0<rn_e3zps_rat<1
                            !
    rn_rdt      = 5760.     !  time step for the dynamics (and tracer if nn_acc=0)
    rn_atfp     =    0.1    !  asselin time filter parameter
@@ -83,6 +83,10 @@
    !                       ! =F : e3 analytical derivative of depth function
    !                       !      only there for backward compatibility test with v3.6
    !                       !
+      !                       ! if ln_e3_dep = T 
+      ln_dept_mid = .false.,   ! =T : set T points in the middle of cells 
+      !                       ! =F : e3 analytical depth function
+      !                       !
    cp_cfg      =  'dumb'   !  name of the configuration
    jp_cfg      =       36   !  resolution of the configuration
    jpidta      =     1478   !  1st lateral dimension ( >= jpi )
