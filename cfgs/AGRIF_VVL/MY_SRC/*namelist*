@@ -1,0 +1,2 @@
+! Created by: combine_namelists -c ./*namelist*_cfg -r ./*namelist*_ref -o ./*namelist*
+

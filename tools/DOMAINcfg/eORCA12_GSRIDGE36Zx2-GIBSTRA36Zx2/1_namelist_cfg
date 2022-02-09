@@ -41,5 +41,6 @@
 
 &namagrif
     ln_vert_remap = .true.,
+    npt_copy = 7,
 /
 
