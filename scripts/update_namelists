@@ -9,6 +9,9 @@ for DIR in {./tools/DOMAINcfg/*/,./cfgs/*/*/}; do
 
     # Create concise and combine namelist
     for NAMCFG in ./*namelist*_cfg; do
+        if [ "$(basename "$DIR")" = "MY_SRC" ]; then
+            continue
+        fi
         NAMREF=${NAMCFG//_cfg/_ref}
         NAMCOM=${NAMCFG//_cfg/}
         "$WD"/scripts/python/print_concise_namelist_cfg -c "$NAMCFG" -r "$NAMREF" --overwrite
@@ -18,4 +21,3 @@ for DIR in {./tools/DOMAINcfg/*/,./cfgs/*/*/}; do
 
     cd "$WD" || exit
 done
-
