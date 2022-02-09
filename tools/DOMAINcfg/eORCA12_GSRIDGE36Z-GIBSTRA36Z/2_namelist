@@ -83,6 +83,10 @@
    !                       ! =F : e3 analytical derivative of depth function
    !                       !      only there for backward compatibility test with v3.6
    !                       !
+      !                       ! if ln_e3_dep = T 
+      ln_dept_mid = .false.,   ! =T : set T points in the middle of cells 
+      !                       ! =F : e3 analytical depth function
+      !                       !
    cp_cfg      =  'dumb'   !  name of the configuration
    jp_cfg      =       36   !  resolution of the configuration
    jpidta      =     263   !  1st lateral dimension ( >= jpi )
