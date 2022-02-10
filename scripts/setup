@@ -5,56 +5,61 @@ COMMIT=3e6d8e25438cdb34a842565685431b984c07679d
 NEMODIR=${WD}/nemo
 
 # Download NEMO
+echo "Downloading NEMO"
 git clone git@forge.nemo-ocean.eu:nemo/core.git -b $BRANCH "$NEMODIR" || exit
 cd "$NEMODIR" || exit
-git reset --hard $COMMIT
+git reset --hard $COMMIT || exit
+cd "$WD" || exit
 
 # Add commas to namelists
+echo "Adding commas to namelists"
 for BOOL in true false TRUE FALSE; do
     find "$NEMODIR"/. -type f \( -name "*namelist*_ref" -o -name "*namelist*_cfg" \) -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
 done
 
-# Arch files
-cp /work/n01/shared/nemo/ARCH/* "$NEMODIR"/arch/NOC/.
-
 # Copy
-cp -r "${WD}"/{arch,data,scripts,tools} "$NEMODIR"/.
+echo "Coping customized files into ${NEMODIR}"
+cp -r "${WD}"/{arch,cfgs,data,scripts,tools} "$NEMODIR"/. || exit
 
 ###########################################
 # TOOLS
 ###########################################
-# Add and compile tools
+# Compile tools
+echo "Compiling tools"
 cd "$NEMODIR"/tools || exit
-../scripts/compile_tools
+../scripts/compile_tools || exit
 
 # Submit DOMAINcfg
+echo "Submitting scripts to create domain files"
 for DIR in "${WD}"/tools/DOMAINcfg/*/; do
     DIR=$(basename "$DIR")
+    echo "$DIR"
     cd "$NEMODIR"/tools/DOMAINcfg/"$DIR"/ || exit
     if [ "$DIR" == "eORCA12_GSRIDGE36Z-GIBSTRA36Z" ] ; then
-        DOMAIN_JOBID=$(sbatch --parsable build_domains.slurm)
+        DOMAIN_JOBID=$(sbatch --parsable build_domains.slurm) || exit
     else
-        sbatch build_domains.slurm
+        sbatch build_domains.slurm || exit
     fi
 done
 
 # Submit WEIGHTS
+echo "Submitting scripts to create weights"
 for DIR in "${WD}"/tools/WEIGHTS/*/; do
     DIR=$(basename "$DIR")
+    echo "$DIR"
     cd "$NEMODIR"/tools/WEIGHTS/"$DIR"/ || exit
-    sbatch --dependency=afterok:"$DOMAIN_JOBID" build_weights.slurm
+    sbatch --dependency=afterok:"$DOMAIN_JOBID" build_weights.slurm || exit
 done
-
-# Bye-Bye
-squeue -u "$USER"
 
 ###########################################
 # CONFIGURATIONS
 ###########################################
 
 # Add and compile cfgs
+echo "Compiling NEMO"
 cd "$NEMODIR" || exit
-./scripts/compile_nemo
+./scripts/compile_nemo || exit
 
+# Bye-Bye
+squeue -u "$USER"
 cd "$WD" || exit
-

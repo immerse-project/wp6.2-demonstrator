@@ -24,6 +24,7 @@
 /
 
 &namcfg
+    ln_dept_mid = .true.,
     cp_cfg = 'dumb',
     jp_cfg = 36,
     jpidta = 263,
