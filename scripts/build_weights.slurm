@@ -145,4 +145,4 @@ else
 fi
 
 # Bye-Bye
-sacct -j "$SLURM_JOB_ID" --units=G --format=JobID,JobName,Elapsed,AveRSS,MaxRSS,MaxRSSNode,MaxRSSTask
+sacct -j "$SLURM_JOB_ID" --units=G --format=JobID,JobName,NNodes,Elapsed,AveRSS,MaxRSS,MaxRSSNode,MaxRSSTask
