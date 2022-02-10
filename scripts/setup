@@ -5,32 +5,32 @@ COMMIT=3e6d8e25438cdb34a842565685431b984c07679d
 NEMODIR=${WD}/nemo
 
 # Download NEMO
-git clone git@forge.nemo-ocean.eu:nemo/core.git -b $BRANCH $NEMODIR || exit
-cd $NEMODIR
+git clone git@forge.nemo-ocean.eu:nemo/core.git -b $BRANCH "$NEMODIR" || exit
+cd "$NEMODIR" || exit
 git reset --hard $COMMIT
 
 # Add commas to namelists
 for BOOL in true false TRUE FALSE; do
-    find $NEMODIR/. -type f \( -name "*namelist*_ref" -o -name "*namelist*_cfg" \) -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
+    find "$NEMODIR"/. -type f \( -name "*namelist*_ref" -o -name "*namelist*_cfg" \) -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
 done
 
 # Arch files
-cp /work/n01/shared/nemo/ARCH/* $NEMODIR/arch/NOC/.
+cp /work/n01/shared/nemo/ARCH/* "$NEMODIR"/arch/NOC/.
 
 # Copy
-cp -r ${WD}/{arch,data,scripts,tools} $NEMODIR/.
+cp -r "${WD}"/{arch,data,scripts,tools} "$NEMODIR"/.
 
 ###########################################
 # TOOLS
 ###########################################
 # Add and compile tools
-cd $NEMODIR/tools || exit
+cd "$NEMODIR"/tools || exit
 ../scripts/compile_tools
 
 # Submit DOMAINcfg
-for DIR in ${WD}/tools/DOMAINcfg/*/; do
+for DIR in "${WD}"/tools/DOMAINcfg/*/; do
     DIR=$(basename "$DIR")
-    cd $NEMODIR/tools/DOMAINcfg/"$DIR"/ || exit
+    cd "$NEMODIR"/tools/DOMAINcfg/"$DIR"/ || exit
     if [ "$DIR" == "eORCA12_GSRIDGE36Z-GIBSTRA36Z" ] ; then
         DOMAIN_JOBID=$(sbatch --parsable build_domains.slurm)
     else
@@ -39,9 +39,9 @@ for DIR in ${WD}/tools/DOMAINcfg/*/; do
 done
 
 # Submit WEIGHTS
-for DIR in ${WD}/tools/WEIGHTS/*/; do
+for DIR in "${WD}"/tools/WEIGHTS/*/; do
     DIR=$(basename "$DIR")
-    cd $NEMODIR/tools/WEIGHTS/"$DIR"/ || exit
+    cd "$NEMODIR"/tools/WEIGHTS/"$DIR"/ || exit
     sbatch --dependency=afterok:"$DOMAIN_JOBID" build_weights.slurm
 done
 
@@ -53,10 +53,8 @@ squeue -u "$USER"
 ###########################################
 
 # Add and compile cfgs
-cd $NEMODIR || exit
+cd "$NEMODIR" || exit
 ./scripts/compile_nemo
 
-
 cd "$WD" || exit
-
 
