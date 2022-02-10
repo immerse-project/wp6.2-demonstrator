@@ -1,11 +1,11 @@
 #!/bin/bash
 
 WD=$PWD
-NEMODIR="./nemo/dev_agrif_immerse"
+NEMODIR="${WD}/nemo"
 
-for DIR in {./tools/DOMAINcfg/*/,./cfgs/*/*/}; do
+for DIR in {${WD}/tools/DOMAINcfg/*/,${WD}/cfgs/*/*/}; do
 
-    cd "${DIR//./$NEMODIR}" || exit
+    cd "${DIR/${WD}/$NEMODIR}" || exit
 
     # Create concise and combine namelist
     for NAMCFG in ./*namelist*_cfg; do
