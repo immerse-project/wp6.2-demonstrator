@@ -122,15 +122,15 @@
 &namtsd        !    Temperature & Salinity Data  (init/dmp)             (default: OFF)
 !-----------------------------------------------------------------------
    !                       ! =T  read T-S fields for:
-   ln_tsd_init = 'CHANGEME'         !  ocean initialisation
+   ln_tsd_init = .false.,         !  ocean initialisation
    ln_tsd_dmp  = .false.,         !  T-S restoring   (see namtra_dmp)
 
-   cn_dir      = './INPUT/'      !  root directory for the T-S data location
+   cn_dir      = './'      !  root directory for the T-S data location
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
-   sn_tem = 'g8p7ho_tsd_init_filled_150Z',  24.0     , 'tn',   .false.    , .false. , 'daily'  ,    'weights_g8p7ho_tsd_init.nc'            ,    ''    ,    ''
-   sn_sal = 'g8p7ho_tsd_init_filled_150Z'             ,  24.0     , 'sn',   .false.    , .false. , 'daily'  ,    'weights_g8p7ho_tsd_init.nc'            ,    ''    ,    ''
+   sn_tem = 'data_1m_potential_temperature_nomask',  -1.     , 'votemper',   .true.    , .true. , 'yearly'  ,    ''            ,    ''    ,    ''
+   sn_sal = 'data_1m_salinity_nomask'             ,  -1.     , 'vosaline',   .true.    , .true. , 'yearly'  ,    ''            ,    ''    ,    ''
 /
 !-----------------------------------------------------------------------
 &namwad        !   Wetting and Drying (WaD)                             (default: OFF)
@@ -692,9 +692,9 @@
 &namagrif      !  AGRIF zoom                                            ("key_agrif")
 !-----------------------------------------------------------------------
    ln_agrif_2way   = .true.,  !  activate two way nesting
-   ln_init_chfrpar = .false., !  initialize child grids from parent
+   ln_init_chfrpar = 'CHANGEME' !  initialize child grids from parent
    ln_vert_remap   = .true. !  use vertical remapping
-   ln_spc_dyn      = .false., !  use 0 as special value for dynamics
+   ln_spc_dyn      = .true. !  use 0 as special value for dynamics
    ln_chk_bathy    = .true.,  !  =T  check the parent bathymetry
    rn_sponge_tra   = 0.002   !  coefficient for tracer   sponge layer []
    rn_sponge_dyn   = 0.002   !  coefficient for dynamics sponge layer []

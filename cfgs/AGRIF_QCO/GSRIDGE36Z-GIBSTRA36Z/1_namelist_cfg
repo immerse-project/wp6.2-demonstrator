@@ -85,8 +85,8 @@
 /
 
 &namagrif
-   ln_init_chfrpar = .true.,
-   ln_spc_dyn = .true.,
+    ln_init_chfrpar = 'CHANGEME',
+    ln_spc_dyn = .true.,
 /
 
 &namdrg
