@@ -19,7 +19,7 @@ done
 
 # Copy
 echo "Coping customized files into ${NEMODIR}"
-cp -r "${WD}"/{arch,cfgs,data,scripts,tools} "$NEMODIR"/. || exit
+cp -r "${WD}"/{arch,cfgs,data,ext,scripts,tools} "$NEMODIR"/. || exit
 
 ###########################################
 # TOOLS
