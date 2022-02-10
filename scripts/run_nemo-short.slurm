@@ -72,7 +72,8 @@ PARENT_DT=${PARENT_DT%.*}
 if [ "$PARENT_IT000" -gt 1 ]; then
     # Use restarts
     edit_var ln_rstart ".true." ./*namelist_cfg
-    edit_var ln_tsd_init ".false." ./*namelist_cfg
+    edit_var ln_init_chfrpar ".false." ./*_namelist_cfg
+    edit_var ln_tsd_init ".false." ./namelist_cfg
 
     for NAMELIST in *namelist_cfg; do
         # Set start
@@ -95,7 +96,8 @@ if [ "$PARENT_IT000" -gt 1 ]; then
 else
     # Start from rest
     edit_var ln_rstart ".false." ./*namelist_cfg
-    edit_var ln_tsd_init ".true." ./*namelist_cfg
+    edit_var ln_init_chfrpar ".true." ./*_namelist_cfg
+    edit_var ln_tsd_init ".true." ./namelist_cfg
     edit_var cn_ocerst_in "'dummy'" ./*namelist_cfg
     edit_var cn_icerst_in "'dummy'" ./*namelist_ice_cfg
     edit_var nn_it000 "1" ./*namelist_cfg

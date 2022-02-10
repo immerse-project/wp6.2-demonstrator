@@ -25,15 +25,6 @@
     cn_domcfg = 'domain_cfg.nc',
 /
 
-&namtsd
-    ln_tsd_init = 'CHANGEME',
-    cn_dir = './INPUT/',
-    sn_tem = 'g8p7ho_tsd_init_filled', 24.0, 'tn', .false., .false., 'daily',
-             'weights_g8p7ho_tsd_init.nc', '', '',
-    sn_sal = 'g8p7ho_tsd_init_filled', 24.0, 'sn', .false., .false., 'daily',
-             'weights_g8p7ho_tsd_init.nc', '', '',
-/
-
 &namsbc
     nn_fsbc = 1,
     ln_blk = .true.,
@@ -91,6 +82,11 @@
 
 &namlbc
     rn_shlat = 0,
+/
+
+&namagrif
+   ln_init_chfrpar = .true.,
+   ln_spc_dyn = .true.,
 /
 
 &namdrg
