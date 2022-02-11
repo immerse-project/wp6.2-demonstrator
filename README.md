@@ -34,7 +34,7 @@ Finally:
 sbatch run_nemo-short.slurm
 ```
 
-Example `mkslurm_immerse` for production runs:
+Example `mkslurm_immerse` settings for production runs:
 ```shell
 ../../../scripts/python/mkslurm_immerse -S 24 -s 16 -m 1 -C 5504 -g 0 -a n01-CLASS -j WP6.2 -t 1-00:00:00 --gnu > scripts/run_nemo.slurm
 ```
