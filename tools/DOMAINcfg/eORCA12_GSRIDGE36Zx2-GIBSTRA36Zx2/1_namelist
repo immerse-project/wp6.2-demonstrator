@@ -84,7 +84,7 @@
    !                       !      only there for backward compatibility test with v3.6
    !                       !
       !                       ! if ln_e3_dep = T 
-      ln_dept_mid = .false.,   ! =T : set T points in the middle of cells 
+      ln_dept_mid = .true.   ! =T : set T points in the middle of cells 
       !                       ! =F : e3 analytical depth function
       !                       !
    cp_cfg      =  'dumb'   !  name of the configuration
@@ -182,7 +182,7 @@
    ln_remove_closedseas = .true., ! Fill lakes inside zoom
    ln_vert_remap = .true. ! volume conserving update 
    npt_connect   = 2
-   npt_copy      = 4 
+   npt_copy      = 7 
 /
 !-----------------------------------------------------------------------
 &nammpp        !   Massively Parallel Processing                        ("key_mpp_mpi")

@@ -1,62 +1,65 @@
 #!/bin/bash
 WD=$PWD
 BRANCH=dev_agrif_immerse
-NEMODIR=nemo/$BRANCH
+COMMIT=3e6d8e25438cdb34a842565685431b984c07679d
+NEMODIR=${WD}/nemo
 
 # Download NEMO
-git clone git@forge.nemo-ocean.eu:nemo/core.git -b $BRANCH $NEMODIR || exit
+echo "Downloading NEMO"
+git clone git@forge.nemo-ocean.eu:nemo/core.git -b $BRANCH "$NEMODIR" || exit
+cd "$NEMODIR" || exit
+git reset --hard $COMMIT || exit
+cd "$WD" || exit
 
 # Add commas to namelists
+echo "Adding commas to namelists"
 for BOOL in true false TRUE FALSE; do
-    find $NEMODIR/. -type f \( -name "*namelist*_ref" -o -name "*namelist*_cfg" \) -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
+    find "$NEMODIR"/. -type f \( -name "*namelist*_ref" -o -name "*namelist*_cfg" \) -exec perl -pi -e "s/.$BOOL.(?!\s*,)/.$BOOL.,/g" {} +
 done
 
-# Arch files
-cp /work/n01/shared/nemo/ARCH/* $NEMODIR/arch/NOC/.
-
-# Copy scripts and data
-cp -r {scripts,data} $NEMODIR/.
+# Copy
+echo "Coping customized files into ${NEMODIR}"
+cp -r "${WD}"/{arch,cfgs,data,ext,scripts,tools} "$NEMODIR"/. || exit
 
 ###########################################
 # TOOLS
 ###########################################
-# Add and compile tools
-cp -r tools/* $NEMODIR/tools/.
-cd $NEMODIR/tools || exit
-"$WD"/scripts/compile_tools
-cd "$WD" || exit
+# Compile tools
+echo "Compiling tools"
+cd "$NEMODIR"/tools || exit
+../scripts/compile_tools || exit
 
 # Submit DOMAINcfg
-for DIR in tools/DOMAINcfg/*/; do
+echo "Submitting scripts to create domain files"
+for DIR in "${WD}"/tools/DOMAINcfg/*/; do
     DIR=$(basename "$DIR")
-    cd $NEMODIR/tools/DOMAINcfg/"$DIR"/ || exit
+    echo "$DIR"
+    cd "$NEMODIR"/tools/DOMAINcfg/"$DIR"/ || exit
     if [ "$DIR" == "eORCA12_GSRIDGE36Z-GIBSTRA36Z" ] ; then
-        DOMAIN_JOBID=$(sbatch --parsable build_domains.slurm)
+        DOMAIN_JOBID=$(sbatch --parsable build_domains.slurm) || exit
     else
-        sbatch build_domains.slurm
+        sbatch build_domains.slurm || exit
     fi
-    cd "$WD" || exit
 done
 
 # Submit WEIGHTS
-for DIR in tools/WEIGHTS/*/; do
+echo "Submitting scripts to create weights"
+for DIR in "${WD}"/tools/WEIGHTS/*/; do
     DIR=$(basename "$DIR")
-    cd $NEMODIR/tools/WEIGHTS/"$DIR"/ || exit
-    sbatch --dependency=afterok:"$DOMAIN_JOBID" build_weights.slurm
-    cd "$WD" || exit
+    echo "$DIR"
+    cd "$NEMODIR"/tools/WEIGHTS/"$DIR"/ || exit
+    sbatch --dependency=afterok:"$DOMAIN_JOBID" build_weights.slurm || exit
 done
-
-# Bye-Bye
-squeue -u "$USER"
 
 ###########################################
 # CONFIGURATIONS
 ###########################################
 
 # Add and compile cfgs
-cp -r cfgs/* $NEMODIR/cfgs/.
-cd $NEMODIR || exit
-"$WD"/scripts/compile_nemo
+echo "Compiling NEMO"
+cd "$NEMODIR" || exit
+./scripts/compile_nemo || exit
+
+# Bye-Bye
+squeue -u "$USER"
 cd "$WD" || exit
-
-

@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=WEIGHTS
-#SBATCH --time=03:00:00
+#SBATCH --time=01:00:00
 #SBATCH --account=n01-CLASS
 #SBATCH --partition=standard
 #SBATCH --qos=standard
@@ -52,16 +52,13 @@ chmod u+x task.sh
 
 # Create namelists and task.conf
 NTASKS=0
-for INFILE in sss_1m g8p7ho_tsd_init_filled_y2006m01d01 geothermal_heating JRA/tas_y2021 JRA/vas_y2021; do
+for INFILE in sss_1m geothermal_heating JRA/tas_y2021 JRA/vas_y2021; do
     BASENAME=$(basename $INFILE)
 
     # Set coordinate names
     if [ "$INFILE" = "sss_1m" ] || [ "$INFILE" = "runoff_1m_nomask" ]; then
         LON=nav_lon
         LAT=nav_lat
-    elif [ "$INFILE" = "g8p7ho_tsd_init_filled_y2006m01d01" ]; then
-        LON=glamt
-        LAT=gphit
     else
         LON=lon
         LAT=lat
@@ -78,8 +75,6 @@ for INFILE in sss_1m g8p7ho_tsd_init_filled_y2006m01d01 geothermal_heating JRA/t
     NAMELIST=$TMPDIR/namelist-$BASENAME
     if [ "$BASENAME" = "tas_y2021" ] || [ "$BASENAME" = "vas_y2021" ]; then
         OUTFILE=WEIGHTS/JRA/weights_JRA_${METHOD}.nc
-    elif [ "$BASENAME" = "g8p7ho_tsd_init_filled_y2006m01d01" ]; then
-        OUTFILE=WEIGHTS/weights_g8p7ho_tsd_init.nc
     else
         OUTFILE=WEIGHTS/weights_$BASENAME.nc
     fi
@@ -150,4 +145,4 @@ else
 fi
 
 # Bye-Bye
-sacct -j "$SLURM_JOB_ID" --units=G --format=JobID,JobName,Elapsed,AveRSS,MaxRSS,MaxRSSNode,MaxRSSTask
+sacct -j "$SLURM_JOB_ID" --units=G --format=JobID,JobName,NNodes,Elapsed,AveRSS,MaxRSS,MaxRSSNode,MaxRSSTask

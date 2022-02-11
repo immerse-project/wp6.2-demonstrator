@@ -1,1 +1,0 @@
-../../tools/WEIGHTS/GIBSTRA36/WEIGHTS/weights_g8p7ho_tsd_init.nc

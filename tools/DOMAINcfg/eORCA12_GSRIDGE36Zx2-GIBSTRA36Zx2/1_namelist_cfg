@@ -24,6 +24,7 @@
 /
 
 &namcfg
+    ln_dept_mid = .true.,
     cp_cfg = 'dumb',
     jp_cfg = 36,
     jpidta = 1478,
@@ -41,5 +42,6 @@
 
 &namagrif
     ln_vert_remap = .true.,
+    npt_copy = 7,
 /
 
