@@ -12,7 +12,7 @@ Wait until all domains and weights are generated, then run NEMO.
 To run NEMO:
 ```shell
 cd nemo/cfgs/AGRIF_QCO/GSRIDGE36Zx2-GIBSTRA36Zx2/
-../../../scripts/python/mkslurm_immerse -S 24 -s 16 -m 1 -C 3712 -g 0 -a n01-CLASS -q short -t 0-00:20:00 --gnu > scripts/run_nemo-short.slurm
+../../../scripts/python/mkslurm_immerse -S 24 -s 16 -m 1 -C 3712 -g 0 -a n01-CLASS -q short -t 0-00:20:00 --gnu > run_nemo-short.slurm
 ```
 There are a few variables to set in `run_nemo-short.slurm`. For example, the following variables will generate a 2-hour simulation split in 1-hour jobs.
 ```bash
@@ -36,7 +36,7 @@ sbatch run_nemo-short.slurm
 
 Example `mkslurm_immerse` settings for production runs:
 ```shell
-../../../scripts/python/mkslurm_immerse -S 24 -s 16 -m 1 -C 5504 -g 0 -a n01-CLASS -j WP6.2 -t 1-00:00:00 --gnu > scripts/run_nemo.slurm
+../../../scripts/python/mkslurm_immerse -S 24 -s 16 -m 1 -C 5504 -g 0 -a n01-CLASS -j WP6.2 -t 1-00:00:00 --gnu > run_nemo.slurm
 ```
 
 ## Setup
