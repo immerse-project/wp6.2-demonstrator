@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=nemo_test
-#SBATCH --time=00:10:00
+#SBATCH --time=0-00:20:00
 #SBATCH --account=n01-CLASS
 #SBATCH --partition=standard
 #SBATCH --qos=short
 #SBATCH --nodes=32
 #SBATCH --ntasks-per-core=1
-# Created by: mkslurm_immerse -S 24 -s 16 -m 1 -C 3712 -g 0 -D . --alternate-dirs False -N 128 -t 00:10:00 -a n01-CLASS -j nemo_test -p standard -q short -v False --gnu True
+# Created by: mkslurm_immerse -S 24 -s 16 -m 1 -C 3712 -g 0 -D . --alternate-dirs False -N 128 -t 0-00:20:00 -a n01-CLASS -j nemo_test -p standard -q short -v False --gnu True
 
 # ========================================================
 # PARAMETERS TO SET

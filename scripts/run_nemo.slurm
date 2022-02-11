@@ -1,12 +1,12 @@
 #!/bin/bash
 #SBATCH --job-name=WP6.2
-#SBATCH --time=00:10:00
+#SBATCH --time=1-00:00:00
 #SBATCH --account=n01-CLASS
 #SBATCH --partition=standard
 #SBATCH --qos=standard
 #SBATCH --nodes=46
 #SBATCH --ntasks-per-core=1
-# Created by: mkslurm_immerse -S 24 -s 16 -m 1 -C 5504 -g 0 -D . --alternate-dirs False -N 128 -t 00:10:00 -a n01-CLASS -j WP6.2 -p standard -q standard -v False --gnu True
+# Created by: mkslurm_immerse -S 24 -s 16 -m 1 -C 5504 -g 0 -D . --alternate-dirs False -N 128 -t 1-00:00:00 -a n01-CLASS -j WP6.2 -p standard -q standard -v False --gnu True
 
 # ========================================================
 # PARAMETERS TO SET
