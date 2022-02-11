@@ -1,6 +1,6 @@
 #!/bin/bash
 ./setup -d nemo -x
-./setup -d head -c db59052a9a7b94b2939dfd42be3f2a4cb9f6abb5 -x
+./setup -d head -c HEAD -x
 
 cd nemo || exit
 COMMIT=$(git rev-parse HEAD)
@@ -14,9 +14,8 @@ fi
 
 cat << EOF > "ISSUE.md"
 ---
-title: TEST Commit $COMMIT_HEAD has been pushed
+title: Commit $COMMIT_HEAD has been pushed
 ---
-THIS IS JUST A TEST!
 Hi there,
 commit [$COMMIT_HEAD](https://forge.nemo-ocean.eu/nemo/core/-/commit/$COMMIT_HEAD) has been pushed.
 EOF
