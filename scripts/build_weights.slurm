@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=WEIGHTS
-#SBATCH --time=03:00:00
+#SBATCH --time=01:00:00
 #SBATCH --account=n01-CLASS
 #SBATCH --partition=standard
 #SBATCH --qos=standard
