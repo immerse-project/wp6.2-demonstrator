@@ -1,0 +1,34 @@
+name: Check latest commit
+
+on:
+  push:
+    branches: "main"
+  pull_request:
+    branches: "*"
+  schedule:
+    - cron: "0 13 * * 1"
+
+permissions:
+  contents: read
+  issues: write 
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Check latest commit
+        shell: bash -l {0}
+        run: ./scripts/check_latest_commit
+
+      - name: Open an issue
+        if: ${{ failure() }}
+        uses: JasonEtco/create-an-issue@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          filename: ISSUE.md
+          assignees: malmans2, jdha, atb299
+          update_existing: true
+          search_existing: all

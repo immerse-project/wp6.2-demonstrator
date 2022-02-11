@@ -1,11 +1,14 @@
 #!/bin/bash
 
 WD=$PWD
+BRANCH=dev_agrif_immerse
+COMMIT=3e6d8e25438cdb34a842565685431b984c07679d
+NEMODIR=${WD}/nemo
+STOP=0
 
 # Handle arguments
-usage() { echo "Usage: $0 [-b branch] [-c commit] [-d directory]" 1>&2; exit 1; }
-
-while getopts ":b:c:d:" o; do
+usage() { echo "Usage: $0 [-b branch] [-c commit] [-d directory] [-x stop_after_download]" 1>&2; exit 1; }
+while getopts ":b:c:d:x" o; do
     case "${o}" in
         b)
             BRANCH=${OPTARG}
@@ -13,8 +16,11 @@ while getopts ":b:c:d:" o; do
         c)
             COMMIT=${OPTARG}
             ;;
-        d) 
+        d)
             NEMODIR=$(realpath "${OPTARG}")
+            ;;
+        x)
+            STOP=1
             ;;
         *)
             usage
@@ -23,24 +29,16 @@ while getopts ":b:c:d:" o; do
 done
 shift $((OPTIND-1))
 
-# Define defaults
-if [ -z "${BRANCH}" ]; then
-    BRANCH=dev_agrif_immerse
-fi
-if [ -z "${COMMIT}" ]; then
-    COMMIT=3e6d8e25438cdb34a842565685431b984c07679d
-fi
-if [ -z "${NEMODIR}" ]; then
-    NEMODIR=${WD}/nemo
-fi
-
 # Download NEMO
 echo "Downloading NEMO"
-git clone git@forge.nemo-ocean.eu:nemo/core.git -b $BRANCH "$NEMODIR" || exit
+git clone git@forge.nemo-ocean.eu:nemo/core.git -b "$BRANCH" "$NEMODIR" || exit
 if [ -n "${COMMIT}" ]; then
     cd "$NEMODIR" || exit
-    git reset --hard $COMMIT || exit
+    git reset --hard "$COMMIT" || exit
     cd "$WD" || exit
+fi
+if [[ "$STOP" == 1 ]]; then
+    exit
 fi
 
 # Add commas to namelists
