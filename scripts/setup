@@ -31,7 +31,7 @@ shift $((OPTIND-1))
 
 # Download NEMO
 echo "Downloading NEMO"
-git clone git@forge.nemo-ocean.eu:nemo/core.git -b "$BRANCH" "$NEMODIR" || exit
+git clone https://forge.nemo-ocean.eu/nemo/nemo.git -b "$BRANCH" "$NEMODIR" || exit
 if [ -n "${COMMIT}" ]; then
     cd "$NEMODIR" || exit
     git reset --hard "$COMMIT" || exit
