@@ -57,5 +57,3 @@ EOF
         fi
     done
 done
-
-exit 1
