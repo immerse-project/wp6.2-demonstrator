@@ -48,7 +48,7 @@ for DIR in "tools/DOMAINcfg" "cfgs/SHARED"; do
             cat << EOF >> "ISSUE.md"
 
 ⚠️WARNING⚠️
-${FILEA/.\/nemo\//} has changed:
+\`${FILEA/.\/nemo\//}\` has changed:
 \`\`\`diff
 diff $FILEA $FILEB
 $DIFF
