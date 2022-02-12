@@ -9,7 +9,7 @@ permissions:
   issues: write 
 
 jobs:
-  build:
+  open_issue:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,8 +18,14 @@ jobs:
         shell: bash -l {0}
         run: ./scripts/check_latest_commit
 
+      - name: Check ISSUE.md existence
+        id: check_ISSUE
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "ISSUE.md"
+
       - name: Open an issue
-        if: ${{ failure() }}
+        if: steps.check_ISSUE.outputs.files_exists == 'true'
         uses: dblock/create-a-github-issue@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
