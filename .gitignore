@@ -1,4 +1,6 @@
 nemo/
+head/
+ISSUE.md
 
 # Created by https://www.toptal.com/developers/gitignore/api/jupyternotebooks,fortran,svn,matlab,python,emacs,vim
 # Edit at https://www.toptal.com/developers/gitignore?templates=jupyternotebooks,fortran,svn,matlab,python,emacs,vim
