@@ -20,11 +20,11 @@ jobs:
 
       - name: Open an issue
         if: ${{ failure() }}
-        uses: JasonEtco/create-an-issue@v2
+        uses: dblock/create-a-github-issue@v3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           filename: ISSUE.md
           assignees: malmans2, atb299, jdha
           update_existing: true
-          search_existing: open
+          search_existing: all
