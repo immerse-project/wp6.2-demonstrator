@@ -182,7 +182,7 @@
    ln_remove_closedseas = .true., ! Fill lakes inside zoom
    ln_vert_remap = .false., ! volume conserving update 
    npt_connect   = 2
-   npt_copy      = 7 
+   npt_copy      = 4 
 /
 !-----------------------------------------------------------------------
 &nammpp        !   Massively Parallel Processing                        ("key_mpp_mpi")

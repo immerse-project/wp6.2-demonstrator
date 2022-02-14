@@ -36,3 +36,7 @@
     ln_zps = .true.,
 /
 
+&namagrif
+    npt_copy = 7,
+/
+
