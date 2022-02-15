@@ -1,6 +1,6 @@
 #!/bin/bash
 ./setup -d nemo -x
-./setup -d head -c HEAD -b main -x
+./setup -d head -c HEAD -x
 
 cd nemo || exit
 COMMIT=$(git rev-parse HEAD)
