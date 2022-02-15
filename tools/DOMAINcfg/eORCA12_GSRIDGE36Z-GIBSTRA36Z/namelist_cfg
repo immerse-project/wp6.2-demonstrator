@@ -22,6 +22,7 @@
 /
 
 &namcfg
+    ln_dept_mid = .true.,
     jp_cfg = 12,
     jpidta = 4320,
     jpjdta = 3605,
