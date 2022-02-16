@@ -1,1 +1,1 @@
-/work/n01/n01/malmans/DATASETS/eORCA12/nohaloes/geothermal_heating.nc
+/work/n01/shared/malmans/immerse_wp6.2_data/INPUT/geothermal_heating.nc

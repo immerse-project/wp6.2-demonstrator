@@ -1,1 +1,1 @@
-/work/n01/n01/malmans/DATASETS/BENCH-ORCA36-INPUT/GIBSTRA36_R36_bathymetry_v3.0.nc
+/work/n01/shared/malmans/immerse_wp6.2_data/2_INPUT/iORCA_R36_bathymetry_v3.0_cutout.nc
