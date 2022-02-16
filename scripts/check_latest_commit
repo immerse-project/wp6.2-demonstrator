@@ -63,12 +63,11 @@ EOF
     done
 done
 
-# Exit
+# Bye-Bye
 if [[ "$WARNED" == 0 ]]; then
-    exit
-fi
-cat << EOF >> "ISSUE.md"
+    cat << EOF >> "ISSUE.md"
 
     🚀THERE ARE NO CONFLICTS🚀
 EOF
+fi
 
