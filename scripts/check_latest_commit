@@ -14,19 +14,22 @@ fi
 
 cat << EOF > "ISSUE.md"
 ---
-title: Commit $COMMIT_HEAD has been pushed
+title: Comparison commit ${COMMIT_HEAD::8} and ${COMMIT::8}
 ---
 Hi there,
-commit [$COMMIT_HEAD](https://forge.nemo-ocean.eu/nemo/core/-/commit/$COMMIT_HEAD) has been pushed.
+commit [${COMMIT_HEAD::8}](https://forge.nemo-ocean.eu/nemo/core/-/commit/$COMMIT_HEAD) has been pushed.
 EOF
 
-for DIR in "./ext" "./cfgs"; do
+WARNED=0
+# Check F90
+for DIR in "./ext" "./cfgs" "./tools"; do
     for FILE in $(find "$DIR" -name "*.F90"); do
         BASENAME=$(basename "$FILE")
         FILEA=$(find nemo -name "$BASENAME")
         FILEB=$(find head -name "$BASENAME")
         DIFF=$(diff "$FILEA" "$FILEB")
         if [ "$DIFF" != "" ]; then
+            WARNED=1
             cat << EOF >> "ISSUE.md"
 
 ⚠️WARNING⚠️
@@ -40,11 +43,13 @@ EOF
     done
 done
 
+# Check namelists
 for DIR in "tools/DOMAINcfg" "cfgs/SHARED"; do
     for FILEA in $(find ./nemo/$DIR ! -path ./nemo/$DIR -prune -type f -name "namelist_ref" -o -name "namelist_ice_ref"); do
         FILEB=${FILEA/nemo/head}
         DIFF=$(diff "$FILEA" "$FILEB")
         if [ "$DIFF" != "" ]; then
+            WARNED=1
             cat << EOF >> "ISSUE.md"
 
 ⚠️WARNING⚠️
@@ -57,3 +62,13 @@ EOF
         fi
     done
 done
+
+# Exit
+if [[ "$WARNED" == 0 ]]; then
+    exit
+fi
+cat << EOF >> "ISSUE.md"
+
+    🚀THERE ARE NO CONFLICTS🚀
+EOF
+
