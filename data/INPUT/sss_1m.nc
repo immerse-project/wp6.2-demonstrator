@@ -1,1 +1,1 @@
-/work/n01/n01/malmans/DATASETS/eORCA12/nohaloes/sss_1m.nc
+/work/n01/shared/malmans/immerse_wp6.2_data/INPUT/sss_1m.nc

@@ -52,7 +52,7 @@ chmod u+x task.sh
 
 # Create namelists and task.conf
 NTASKS=0
-for INFILE in sss_1m geothermal_heating JRA/tas_y2021 JRA/vas_y2021; do
+for INFILE in sss_1m geothermal_heating JRA/tas_y2006 JRA/vas_y2006; do
     BASENAME=$(basename $INFILE)
 
     # Set coordinate names
@@ -65,7 +65,7 @@ for INFILE in sss_1m geothermal_heating JRA/tas_y2021 JRA/vas_y2021; do
     fi
 
     # Set interpolation method
-    if [ "$BASENAME" = "vas_y2021" ]; then
+    if [ "$BASENAME" = "vas_y2006" ]; then
         METHOD=bicubic
     else
         METHOD=bilinear
@@ -73,7 +73,7 @@ for INFILE in sss_1m geothermal_heating JRA/tas_y2021 JRA/vas_y2021; do
 
     # Set filenames
     NAMELIST=$TMPDIR/namelist-$BASENAME
-    if [ "$BASENAME" = "tas_y2021" ] || [ "$BASENAME" = "vas_y2021" ]; then
+    if [ "$BASENAME" = "tas_y2006" ] || [ "$BASENAME" = "vas_y2006" ]; then
         OUTFILE=WEIGHTS/JRA/weights_JRA_${METHOD}.nc
     else
         OUTFILE=WEIGHTS/weights_$BASENAME.nc

@@ -1,1 +1,1 @@
-/work/n01/n01/malmans/DATASETS/eORCA12/nohaloes/runoff_1m_nomask.nc
+/work/n01/shared/malmans/immerse_wp6.2_data/INPUT/runoff_1m_nomask.nc
