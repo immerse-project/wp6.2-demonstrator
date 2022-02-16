@@ -68,6 +68,7 @@ if [[ "$WARNED" == 0 ]]; then
     cat << EOF >> "ISSUE.md"
 
 🚀THERE ARE NO CONFLICTS🚀
+Consider setting \`COMMIT=$COMMIT_HEAD\` [here](https://github.com/immerse-project/wp6.2-demonstrator/blob/main/scripts/setup#L5).
 EOF
 fi
 
