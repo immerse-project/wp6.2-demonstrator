@@ -67,7 +67,7 @@ done
 if [[ "$WARNED" == 0 ]]; then
     cat << EOF >> "ISSUE.md"
 
-    🚀THERE ARE NO CONFLICTS🚀
+🚀THERE ARE NO CONFLICTS🚀
 EOF
 fi
 
