@@ -21,14 +21,9 @@ commit [${COMMIT_HEAD::8}](https://forge.nemo-ocean.eu/nemo/core/-/commit/$COMMI
 EOF
 
 WARNED=0
-# Check F90 and SHARED
-for DIR in "./ext" "./cfgs" "./tools" "./cfgs/SHARED"; do
-    if [[ "$DIR" == "./cfgs/SHARED" ]]; then
-        EXT="*"
-    else
-        EXT="*.F90"
-    fi
-    for FILE in $(find "$DIR" -name "$EXT"); do
+# Check F90
+for DIR in "./ext" "./cfgs" "./tools"; do
+    for FILE in $(find "$DIR" -name "*.F90"); do
         BASENAME=$(basename "$FILE")
         FILEA=$(find nemo -name "$BASENAME")
         FILEB=$(find head -name "$BASENAME")
@@ -48,9 +43,9 @@ EOF
     done
 done
 
-# Check namelists
+# Check namelists and xml
 for DIR in "tools/DOMAINcfg" "cfgs/SHARED"; do
-    for FILEA in $(find ./nemo/$DIR ! -path ./nemo/$DIR -prune -type f -name "namelist_ref" -o -name "namelist_ice_ref"); do
+    for FILEA in $(find ./nemo/$DIR ! -path ./nemo/$DIR -prune -type f -name "namelist_ref" -o -name "namelist_ice_ref" -o -name "*.xml"); do
         FILEB=${FILEA/nemo/head}
         DIFF=$(diff "$FILEA" "$FILEB")
         if [ "$DIFF" != "" ]; then
