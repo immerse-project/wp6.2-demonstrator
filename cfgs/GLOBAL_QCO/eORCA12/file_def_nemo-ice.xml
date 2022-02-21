@@ -51,13 +51,10 @@
       <field field_ref="sheastr"          name="sheastr" />
       <field field_ref="sig1_pnorm"/>
       <field field_ref="sig2_pnorm"/>
-      <field field_ref="uice_cvg"/>
       
       <!-- heat fluxes -->
       <field field_ref="qt_oce_ai"        name="qt_oce_ai"  />
       <field field_ref="qt_atm_oi"        name="qt_atm_oi"  />
-      <field field_ref="qtr_ice_top"      name="qtr_ice_top"/>
-      <field field_ref="qtr_ice_bot"      name="qtr_ice_bot"/>
       <field field_ref="qt_ice"           name="qt_ice"     />
       <field field_ref="qsr_ice"          name="qsr_ice"    />
       <field field_ref="qns_ice"          name="qns_ice"    />
