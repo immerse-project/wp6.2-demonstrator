@@ -43,9 +43,9 @@ EOF
     done
 done
 
-# Check namelists
+# Check namelists and xml
 for DIR in "tools/DOMAINcfg" "cfgs/SHARED"; do
-    for FILEA in $(find ./nemo/$DIR ! -path ./nemo/$DIR -prune -type f -name "namelist_ref" -o -name "namelist_ice_ref"); do
+    for FILEA in $(find ./nemo/$DIR ! -path ./nemo/$DIR -prune -type f -name "namelist_ref" -o -name "namelist_ice_ref" -o -name "*.xml"); do
         FILEB=${FILEA/nemo/head}
         DIFF=$(diff "$FILEA" "$FILEB")
         if [ "$DIFF" != "" ]; then
