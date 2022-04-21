@@ -1,8 +1,8 @@
 #!/bin/bash
 
 WD=$PWD
-BRANCH=main
-COMMIT=9aad242d207044718f620cc2cae06cfd8197dbe8
+BRANCH=dev_agrif_parallel_sisters
+COMMIT=
 NEMODIR=${WD}/nemo
 STOP=0
 
