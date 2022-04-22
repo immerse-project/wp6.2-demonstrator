@@ -200,6 +200,8 @@ def main(args):
     {'module load libfabric' if args.gnu else ''}
     module list
     export OMP_NUM_THREADS=1
+    export UCX_IB_REG_METHODS=direct
+    export FI_MR_CACHE_MAX_COUNT=0
     """
     slurm += dedent(string)
 
@@ -244,7 +246,7 @@ def main(args):
             )
             strings += [
                 het_group_string
-                + f"--mem=0 --oversubscribe --nodes={values['nnodes']}"
+                + f" --nodes={values['nnodes']}"
                 + f" --ntasks={len(cores)*values['nnodes']}"
                 + f" --ntasks-per-node={len(cores)}"
                 + " --cpu-bind=v,mask_cpu:"
