@@ -28,7 +28,7 @@
 &namsbc
     nn_fsbc = 1,
     ln_blk = .true.,
-    nn_ice = 2,
+    nn_ice = 0,
     ln_traqsr = .true.,
     ln_ssr = .true.,
     ln_rnf = .true.,
@@ -151,3 +151,6 @@
     nn_havtb = 1,
 /
 
+&namzdf_tke
+    nn_mxlice    = 0
+/
