@@ -28,17 +28,17 @@
       <field field_ref="qsr"/>
       <field field_ref="qt"          name="hfds"/>
       <field field_ref="empmr"       name="sowaflup"/>
-      <field field_ref="ice_cover"   name="soicecov"/>
+      <!-- <field field_ref="ice_cover"   name="soicecov"/> -->
       <field field_ref="emp_oce"     name="soemp_oce"/>
-      <field field_ref="emp_ice"     name="soemp_ice"/>
-      <field field_ref="snowpre"     name="snowpre"/>
+      <!-- <field field_ref="emp_ice"     name="soemp_ice"/> -->
+      <!-- <field field_ref="snowpre"     name="snowpre"/> -->
       <field field_ref="precip"      name="soprecip"/>
       <field field_ref="fmmflx"      name="fsitherm"/>
       <field field_ref="runoffs"     name="friver"/>
       <field field_ref="erp"         name="so_erp"/>
-      <field field_ref="saltflx"     name="sfdsi"/>
-      <field field_ref="fwfisf_cav"  name="sowflisf_cav"/>
-      <field field_ref="fwfisf_par"  name="sowflisf_par"/>
+      <!-- <field field_ref="saltflx"     name="sfdsi"/> -->
+      <!-- <field field_ref="fwfisf_cav"  name="sowflisf_cav"/> -->
+      <!-- <field field_ref="fwfisf_par"  name="sowflisf_par"/> -->
     </file>
 
     <file description="ocean inner T grid variables" id="file02" name_suffix="_innerT">
@@ -89,18 +89,18 @@
       <field field_ref="qsr"/>
       <field field_ref="qt"          name="hfds"/>
       <field field_ref="empmr"       name="sowaflup"/>
-      <field field_ref="ice_cover"   name="soicecov"/>
+      <!-- <field field_ref="ice_cover"   name="soicecov"/> -->
       <field field_ref="emp_oce"     name="soemp_oce"/>
-      <field field_ref="emp_ice"     name="soemp_ice"/>
-      <field field_ref="snowpre"     name="snowpre"/>
+      <!-- <field field_ref="emp_ice"     name="soemp_ice"/> -->
+      <!-- <field field_ref="snowpre"     name="snowpre"/> -->
       <field field_ref="precip"      name="soprecip"/>
       <field field_ref="fmmflx"      name="fsitherm"/>
       <field field_ref="runoffs"     name="friver"/>
       <field field_ref="erp"         name="so_erp"/>
-      <field field_ref="saltflx"     name="sfdsi"/>
-      <field field_ref="qlatisf_par" name="sohflisf"/>
-      <field field_ref="qhcisf_par"  name="sohfcisf"/>
-      <field field_ref="fwfisf_par"  name="sowflisf"/>
+      <!-- <field field_ref="saltflx"     name="sfdsi"/> -->
+      <!-- <field field_ref="qlatisf_par" name="sohflisf"/> -->
+      <!-- <field field_ref="qhcisf_par"  name="sohfcisf"/> -->
+      <!-- <field field_ref="fwfisf_par"  name="sowflisf"/> -->
     </file>
 
     <file description="ocean inner T grid variables" id="file08" name_suffix="_innerT">
