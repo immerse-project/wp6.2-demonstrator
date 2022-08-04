@@ -173,3 +173,7 @@
     nn_havtb = 1,
 /
 
+&namzdf_tke
+    rn_efr = 0.03333333
+/
+
