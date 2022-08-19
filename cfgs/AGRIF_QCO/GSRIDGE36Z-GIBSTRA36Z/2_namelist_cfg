@@ -153,4 +153,6 @@
 
 &namzdf_tke
     nn_mxlice    = 0
+    rn_efr = 0.01111111
 /
+
