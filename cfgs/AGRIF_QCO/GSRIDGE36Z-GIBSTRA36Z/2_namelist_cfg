@@ -31,6 +31,7 @@
     nn_ice = 0,
     ln_traqsr = .true.,
     ln_ssr = .true.,
+    nn_fwb = 1,
     ln_rnf = .true.,
     nn_lsm = -3,
 /
@@ -153,6 +154,6 @@
 
 &namzdf_tke
     nn_mxlice    = 0
-    rn_efr = 0.01111111
+    rn_efr = 0.03333333
 /
 
