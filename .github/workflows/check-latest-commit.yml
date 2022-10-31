@@ -23,7 +23,7 @@ jobs:
 
       - name: Check ISSUE.md existence
         id: check_ISSUE
-        uses: andstor/file-existence-action@v1
+        uses: andstor/file-existence-action@v2
         with:
           files: "ISSUE.md"
 
