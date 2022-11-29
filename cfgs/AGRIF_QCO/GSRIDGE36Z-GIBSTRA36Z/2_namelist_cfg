@@ -95,7 +95,7 @@
 
 &nambbc
     ln_trabbc = .true.,
-    cn_dir = './INPUT/',
+    cn_dir = './2_INPUT/',
     sn_qgh = 'geothermal_heating.nc', -12, 'gh_flux', .false., .true., 'yearly',
              'weights_geothermal_heating.nc', '', '',
 /
