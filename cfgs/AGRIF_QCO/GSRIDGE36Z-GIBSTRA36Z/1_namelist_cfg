@@ -31,7 +31,6 @@
     nn_ice = 2,
     ln_traqsr = .true.,
     ln_ssr = .true.,
-    nn_fwb = 1,
     ln_rnf = .true.,
     nn_lsm = -3,
 /

@@ -1,0 +1,1 @@
+weights_JRA_bicubic.nc
