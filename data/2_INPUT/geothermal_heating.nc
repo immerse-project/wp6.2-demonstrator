@@ -1,0 +1,1 @@
+../INPUT/geothermal_heating.nc

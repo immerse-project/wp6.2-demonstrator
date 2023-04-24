@@ -291,7 +291,7 @@
    ln_Cx_ice_LU12  = .false.,  !  (Lupkes et al. 2012)
    ln_Cx_ice_LG15  = .false.,  !  (Lupkes & Gryanik 2015)
    !
-   cn_dir      = './INPUT/JRA/'      !  root directory for the bulk data location
+   cn_dir      = './2_INPUT/JRA/'      !  root directory for the bulk data location
    !___________!_________________________!___________________!___________!_____________!________!___________!______________________________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ !       weights filename               ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                                      ! pairing  !    filename   !
@@ -465,7 +465,7 @@
                               ! 1 = restoration everywhere 
                               ! >1 = enhanced restoration under ice : 1+(nn_icedmp-1)*icefrac
 
-   cn_dir      = './INPUT/'      !  root directory for the SST/SSS data location
+   cn_dir      = './2_INPUT/'      !  root directory for the SST/SSS data location
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
@@ -488,7 +488,7 @@
       rn_dep_max  = 150.       !  depth over which runoffs is spread ( ln_rnf_depth_ini = .true.,)
       nn_rnf_depth_file = 0    !  create (=1) a runoff depth file or not (=0)
 
-   cn_dir       = './INPUT/'      !  root directory for the runoff data location
+   cn_dir       = './2_INPUT/'      !  root directory for the runoff data location
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !
@@ -848,7 +848,7 @@
       !                       !                        = 2 read variable flux [mW/m2]
       rn_geoflx_cst = 86.4e-3 !  Constant value of geothermal heat flux       [mW/m2]
 
-   cn_dir      = './INPUT/'      !  root directory for the geothermal data location
+   cn_dir      = './2_INPUT/'      !  root directory for the geothermal data location
    !___________!_________________________!___________________!___________!_____________!________!___________!__________________!__________!_______________!
    !           !  file name              ! frequency (hours) ! variable  ! time interp.!  clim  ! 'yearly'/ ! weights filename ! rotation ! land/sea mask !
    !           !                         !  (if <0  months)  !   name    !   (logical) !  (T/F) ! 'monthly' !                  ! pairing  !    filename   !

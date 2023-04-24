@@ -1,0 +1,1 @@
+weights_geothermal_heating.nc

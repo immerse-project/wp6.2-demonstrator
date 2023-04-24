@@ -36,7 +36,7 @@
 /
 
 &namsbc_blk
-    cn_dir = './INPUT/JRA/',
+    cn_dir = './2_INPUT/JRA/',
     sn_wndi = 'uas', 3, 'uas', .true., .false., 'yearly', 'weights_JRA_bicubic.nc',
               'Ume',
     sn_wndj = 'vas', 3, 'vas', .true., .false., 'yearly', 'weights_JRA_bicubic.nc',
@@ -64,7 +64,7 @@
 &namsbc_ssr
     nn_sssr = 2,
     rn_deds = -33.3333333,
-    cn_dir = './INPUT/',
+    cn_dir = './2_INPUT/',
     sn_sss = 'sss_1m.nc', -1, 'salinity', .true., .true., 'yearly', 'weights_sss_1m.nc',
              '', '',
 /
@@ -73,7 +73,7 @@
     ln_rnf_mouth = .true.,
     rn_hrnf = 10.0,
     rn_avt_rnf = 0.002,
-    cn_dir = './INPUT/',
+    cn_dir = './2_INPUT/',
     sn_rnf = 'iORCA_R36_runoff_v3.0_cutout.nc', -1, 'sornficb', .true.,
              .true., 'yearly', '', '', '',
     sn_cnf = 'iORCA_R36_runoff_v3.0_cutout.nc', 0, 'socoefr', .false., .true.,
@@ -95,7 +95,7 @@
 
 &nambbc
     ln_trabbc = .true.,
-    cn_dir = './INPUT/',
+    cn_dir = './2_INPUT/',
     sn_qgh = 'geothermal_heating.nc', -12, 'gh_flux', .false., .true., 'yearly',
              'weights_geothermal_heating.nc', '', '',
 /
@@ -153,6 +153,6 @@
 
 &namzdf_tke
     nn_mxlice    = 0
-    rn_efr = 0.01111111
+    rn_efr = 0.03333333
 /
 

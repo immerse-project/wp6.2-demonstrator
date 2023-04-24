@@ -1,9 +1,9 @@
 #!/bin/bash
 
 WD=$PWD
-BRANCH=dev_agrif_parallel_sisters
-COMMIT=202405c302ebb6a90b9997bde9e470499f41b2f7 
-#COMMIT=355a3c1b4dd4f0e6a25b6f4692790cb9a8cc4e95
+BRANCH=78-no-incorrect-volume-control-nn_fwb-0-with-agrif-zooms
+#COMMIT=202405c302ebb6a90b9997bde9e470499f41b2f7 
+COMMIT=47a4b5834a4cefea792f7e82beec73f914323684
 NEMODIR=${WD}/nemo
 STOP=0
 
@@ -51,6 +51,9 @@ done
 # Copy
 echo "Coping customized files into ${NEMODIR}"
 cp -r "${WD}"/{arch,cfgs,data,ext,scripts,tools} "$NEMODIR"/. || exit
+
+# Temporary fix for agrifpp.sh
+cp agrifpp.sh nemo/mk
 
 ###########################################
 # TOOLS
