@@ -3,7 +3,6 @@
 ## Quick start on Archer2 (UK National Supercomputing Service)
 ```shell
 git clone git@github.com:immerse-project/wp6.2-demonstrator.git
-git switch 78-parallel_sisters
 cd wp6.2-demonstrator
 ./setup
 ```
