@@ -1,9 +1,8 @@
 #!/bin/bash
 
 WD=$PWD
-BRANCH=78-no-incorrect-volume-control-nn_fwb-0-with-agrif-zooms
-#COMMIT=202405c302ebb6a90b9997bde9e470499f41b2f7 
-COMMIT=47a4b5834a4cefea792f7e82beec73f914323684
+BRANCH=main
+COMMIT=b4692d5d1fcc83650ec3fa4a42536e981c960918
 NEMODIR=${WD}/nemo
 STOP=0
 
